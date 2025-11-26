@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeGalleryModal();
         initializeContactModal();
         initializeBackToTop();
+        initializeFadeInObserver();
         initializeMobileDropdown();
     };
 
@@ -285,29 +286,60 @@ document.addEventListener('DOMContentLoaded', function() {
      * Em vez de navegar, o primeiro toque no link "Coleções" abre o submenu.
      */
     const initializeMobileDropdown = () => {
-        const dropdown = document.querySelector('.dropdown');
-        if (!dropdown) return;
+        const dropdowns = document.querySelectorAll('.dropdown');
+        if (!dropdowns.length) return;
+    
+        dropdowns.forEach(dropdown => {
+            const dropbtn = dropdown.querySelector('.dropbtn');
+            const dropdownContent = dropdown.querySelector('.dropdown-content');
+    
+            if (dropbtn) {
+                dropbtn.addEventListener('click', function(event) {
+                    // Em telas menores, previne a navegação e controla o submenu
+                    if (window.innerWidth <= 768) {
+                        event.preventDefault();
+    
+                        // Verifica se o submenu clicado já está aberto
+                        const isVisible = dropdown.classList.contains('dropdown-open');
+    
+                        // Fecha todos os submenus abertos
+                        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('dropdown-open'));
+    
+                        // Se não estava visível, abre o submenu clicado
+                        if (!isVisible) {
+                            dropdown.classList.add('dropdown-open');
+                        }
+                    }
+                }
+            );
+        }});
+    };
 
-        const dropdownButton = dropdown.querySelector('.dropbtn');
+    /**
+     * Inicializa o observador para o efeito de fade-in nos elementos
+     * conforme eles entram na tela durante a rolagem.
+     */
+    const initializeFadeInObserver = () => {
+        // Seleciona todos os elementos que devem ter o efeito
+        const animatedElements = document.querySelectorAll('.product-box, .collection-item, .product-card');
 
-        // Detecta se é um dispositivo de toque para aplicar o comportamento de clique
-        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        if (!animatedElements.length) return;
 
-        if (isTouchDevice) {
-            dropdownButton.addEventListener('click', function(event) {
-                // Impede a ação padrão do link (navegar para produtos.html)
-                event.preventDefault();
-                // Adiciona ou remove a classe que controla a visibilidade do dropdown
-                dropdown.classList.toggle('dropdown-open');
-            });
-
-            // Adiciona um listener para fechar o dropdown se o usuário clicar fora dele
-            document.addEventListener('click', function(event) {
-                if (!dropdown.contains(event.target)) {
-                    dropdown.classList.remove('dropdown-open');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                // Se o elemento está visível na tela
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Para de observar o elemento para a animação não repetir
+                    observer.unobserve(entry.target);
                 }
             });
-        }
+        }, {
+            threshold: 0.1 // A animação dispara quando 10% do elemento estiver visível
+        });
+
+        // Inicia a observação para cada elemento
+        animatedElements.forEach(el => observer.observe(el));
     };
 
     // Inicia o processo de carregamento dos componentes, que por sua vez chamará a inicialização dos outros scripts.

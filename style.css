@@ -789,3 +789,82 @@ footer {
     background-color: #e4a79d; /* Cor de destaque */
     outline: none;
 }
+
+/* ==========================================================================
+   Animação de Fade-in na Rolagem
+   ========================================================================== */
+
+/* Estado inicial dos elementos que irão animar */
+.product-box,
+.collection-item,
+.product-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease; /* Combina transições */
+}
+
+/* Classe adicionada via JS quando o elemento está visível */
+.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================= */
+/*          MEDIA QUERIES (Mobile)           */
+/* ========================================= */
+@media (max-width: 768px) {
+
+    /* --- Ajustes no Cabeçalho --- */
+    header .logo {
+        padding-bottom: 0; /* Remove o preenchimento inferior da logo */
+    }
+
+    header .logo img {
+        width: 150px; /* Diminui o tamanho da logo */
+    }
+
+    header #text-bottom {
+        font-size: 1em; /* Diminui a fonte do slogan */
+        margin-top: 5px; /* Reduz a margem superior do slogan */
+    }
+
+    nav {
+        margin-top: 10px; /* Reduz o espaço entre o slogan e a navegação */
+    }
+
+    /* --- Ajustes no Slider (Página Inicial) --- */
+    .slider {
+        height: 50vw; /* Altura proporcional à largura da tela */
+        min-height: 200px; /* Garante uma altura mínima */
+    }
+
+    /* --- Ajustes de Fonte (Geral) --- */
+    h2 {
+        font-size: 1.5em; /* Tamanho base para h2 em mobile */
+    }
+
+    h3 {
+        font-size: 1.2em; /* Tamanho base para h3 em mobile */
+    }
+
+    /* --- Ajustes de Fonte (Página Inicial) --- */
+    .presentation h2 {
+        font-size: 1.1em; /* Fonte da seção de apresentação */
+        line-height: 1.4;
+    }
+
+    .product-types > h2 {
+        font-size: 1.3em; /* Fonte do título "Veja abaixo..." */
+    }
+
+    .product-types .product-box-container + h2 {
+        font-size: 1.2em; /* Fonte do "Quer saber sobre..." */
+        padding: 15px;
+    }
+
+    /* --- Ajustes de Fonte (Rodapé) --- */
+    footer#contato h3 {
+        font-size: 1.2em; /* Fonte do "Vamos Bordar Sua Ideia?!" */
+        padding: 0 15px;
+    }
+}
