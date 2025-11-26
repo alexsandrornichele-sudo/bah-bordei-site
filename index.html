@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bah!Bordei - Bordados feitos à mão que transformam suas memórias em arte. Conheça nossas coleções de porta alianças, porta maternidade e bordados a partir de fotos.">
+    <title>Bah Bordei - Bordados à Mão</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Biblioteca de ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo-link">
+            <div class="logo">
+                <img src="images/logo.jpg" alt="Logo da Bah!Bordei, com o nome da marca ao centro de uma guirlanda de flores, com borboletas e uma abelha.">
+                <h1 id="text-top">Aquarelando histórias</h1>
+                <h1 id="text-bottom">Bordando memórias</h1>
+            </div>
+        </a>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="produtos.html">Produtos</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="slider">
+            <div class="slides">
+                <!-- Slides de Imagens -->
+                <div class="slide" style="background-image: url('images/slide1.jpg');"></div>
+                <div class="slide" style="background-image: url('images/slide2.jpg');"></div>
+                <div class="slide" style="background-image: url('images/slide3.jpg');"></div>
+                <div class="slide" style="background-image: url('images/slide4.jpg');"></div>
+            </div>
+            <!-- Camada de Texto Separada -->
+        
+        </section>
+
+        <section class="product-types">
+            
+            <div class="presentation">
+                <h2>Onde cada ponto é um suspiro, e o fio dança para tecer histórias. <br>Mais que bordar, eu crio memórias que se vestem e decoram com a paciência e o amor do feito à mão.</h2><br>
+                <p>Oi, eu sou a Débora, a criadora da Bah!Bordei. Desde 2020 iniciei meu trabalho com bordados feitos a mão de forma profissional, mas minha história com bordado começou bem mais cedo. Com 9 anos aprendi que fazer algo com as mãos leva carinho, tempo e um pouco de nós mesmos em cada ponto.</p>
+                <p>Hoje, passados 5 anos e mais de 800 bordados produzidos e enviados para todo o Brasil e até para fora dele, feitos com muito carinho e dedicação, posso dizer que meu objetivo é criar peças com diferentes técnicas, para que se tornem uma lembrança inesquecível e exclusiva de momentos especiais.</p><br>
+                <p><strong>Bah!Bordei: aquarelando histórias, bordando memórias.</strong></p>
+            </div>
+
+        
+            <h2>Veja abaixo alguns de nossos produtos:</h2>
+
+            <div class="product-box-container">
+                <div class="product-box">
+                    <h3>Porta Alianças em <br>Aquarela e Bordado</h3>
+                    <p>Eternize não apenas o dia do casamento, mas também o local desse dia tão especial.</p>
+                </div>
+                <div class="product-box">
+                    <h3>Porta Maternidade</h3>
+                    <p>Na hora de dar boas-vindas ao bebê, personalize cada detalhe dessa linda decoração.</p>
+                </div>
+                <div class="product-box">
+                    <h3>Bordado a partir de Foto</h3>
+                    <p>Transforme aquela foto de um momento especial para você em um lindo bordado. </p>
+                </div>
+                  <div class="product-box">
+                    <h3>Pintura do seu Pet <br>em Agulha Realista</h3>
+                    <p>Você pode sempre ter seu Pet próximo com essa lembrança inesquecível.</p>
+                </div>
+
+                <h2>Quer saber sobre esses e outros produtos? Clique <a href="produtos.html">aqui!</a></h2>
+            </div>
+        </section>
+    </main>
+
+   <footer id="contato">
+        <h3>Vamos Bordar Sua Ideia?! É fácil! Nos encontre aqui:</h3>
+        <div class="contact-info">
+            <a href="#" class="contact-phone phone-modal-trigger">
+                <i class="fas fa-phone"></i>
+                <span class="phone">51-98169.1835</span></a>
+            <a href="https://www.instagram.com/bahbordei/" class="social-media" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram"></i>
+            <span class="instagram-text">@bahbordei</span></a>
+        </div>
+    </footer>
+
+    <footer class="direitos">
+        <p>2025 ©Bah!Bordei. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Modal de Contato (Pop-up) -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-contact-content">
+            <span class="close-contact-modal">&times;</span>
+            <h3>Como prefere o contato?</h3>
+            <div class="modal-buttons">
+                <a href="tel:+5551981691835" class="modal-button call-button">
+                    <i class="fas fa-phone"></i> Ligar
+                </a>
+                <a href="https://wa.me/5551981691835" class="modal-button whatsapp-button-modal" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adiciona a biblioteca CircleType.js -->
+    <script src="https://cdn.jsdelivr.net/npm/circletype@2.3.0/dist/circletype.min.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Botão Voltar ao Topo -->
+    <a href="#" id="back-to-top" class="back-to-top" title="Voltar ao topo"><i class="fas fa-arrow-up"></i></a>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Arquivos de configuração de editores e IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de log
+*.log
+
+# Pastas de dependências (comum em projetos com Node.js)
+node_modules/
+
+# Arquivos de ambiente (para guardar senhas ou chaves de API no futuro)
+.env
