@@ -27,8 +27,8 @@ O projeto foi estruturado para ser modular e de fácil manutenção.
 -   `script.js`: O arquivo JavaScript principal, responsável por:
     -   Carregar o `header.html` e o `footer.html` em todas as páginas.
     -   Controlar a animação de "máquina de escrever".
-    -   Gerenciar os modais de galeria de imagens e de contato.
-    -   Controlar o menu hambúrguer em telas móveis.
+    -   Gerenciar os modais (pop-ups) de galeria de imagens e de contato.
+    -   Gerenciar o comportamento do menu suspenso em telas de toque (mobile).
 -   `/images`: Pasta contendo todas as imagens do site.
 
 ---

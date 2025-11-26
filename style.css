@@ -55,8 +55,6 @@ header h1 {
 /* Efeito de digitação para o texto do cabeçalho */
 #text-bottom {
     display: inline-block; /* Garante que o container se ajuste ao texto */
-    overflow: hidden; /* Garante que o texto não quebre a linha durante a animação */
-    white-space: nowrap; /* Mantém o texto em uma única linha */
     border-right: .15em solid #e4a79d; /* O cursor da máquina de escrever */
     animation: blink-caret .75s step-end infinite;
 }
@@ -102,25 +100,17 @@ header h1 {
 
 nav {
     background-color: #FAF4E0;
-    padding: 20px 0;
+    padding: 20px 0; /* Adiciona o padding vertical de volta para desktop */
     border-bottom: 10px solid #F7B393; /* Barra separadora */
 }
 
-/* Botão Hambúrguer (escondido por padrão) */
-.hamburger {
-    display: none;
-    background: none;
-    border: none;
-    color: #6C4A3A;
-    font-size: 24px;
-    cursor: pointer;
-}
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
     text-align: center;
 }
+
 
 nav ul li {
     display: inline-block;
@@ -184,6 +174,12 @@ nav ul li a:focus {
     display: block;
 }
 
+/* Estilo para o dropdown aberto via JS em mobile */
+.dropdown-open .dropdown-content {
+    display: block;
+}
+
+
 /* ==========================================================================
    Modal de Contato (Pop-up)
    ========================================================================== */
@@ -201,6 +197,7 @@ nav ul li a:focus {
     color: #6C4A3A; /* Cor do texto principal */
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
+
 
 .close-contact-modal {
     color: #aaa;
@@ -709,37 +706,6 @@ footer {
         min-width: 200px;
     }
 
-    /* --- Estilos do Menu Hambúrguer --- */
-    .hamburger {
-        display: block; /* Mostra o botão em telas menores */
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 1001; /* Garante que fique acima do menu */
-    }
-
-    nav {
-        padding: 0; /* Remove o padding para o menu ocupar a tela toda */
-    }
-
-    nav ul {
-        display: none; /* Esconde a lista de links por padrão */
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: #FAF4E0;
-        z-index: 1000;
-    }
-
-    /* Mostra o menu quando a classe 'nav-open' é adicionada */
-    nav.nav-open ul {
-        display: flex;
-    }
 }
 
 /* Para celulares (até 480px) */
@@ -780,6 +746,12 @@ footer {
 
     /* Centraliza o texto de apresentação em telas pequenas para melhor legibilidade */
     .presentation p {
+        text-align: center;
+    }
+
+    /* Permite que o texto do cabeçalho quebre a linha em telas muito pequenas */
+    #text-bottom {
+        white-space: normal;
         text-align: center;
     }
 }

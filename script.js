@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const type = () => {
             if (i < text.length) {
                 textElement.innerHTML += text.charAt(i);
+                if (text.charAt(i) === ' ') textElement.style.whiteSpace = 'normal'; // Permite quebra de linha
                 i++;
                 setTimeout(type, 100); // Velocidade da digitação (em milissegundos)
             } else {
@@ -58,7 +59,33 @@ document.addEventListener('DOMContentLoaded', function() {
         initializeGalleryModal();
         initializeContactModal();
         initializeBackToTop();
-        initializeHamburgerMenu();
+        initializeMobileDropdown();
+    };
+
+    /**
+     * Função utilitária para prender o foco do teclado dentro de um elemento (modal).
+     * @param {HTMLElement} element - O elemento que deve conter o foco.
+     */
+    const trapFocus = (element) => {
+        const focusableEls = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        const firstFocusableEl = focusableEls[0];
+        const lastFocusableEl = focusableEls[focusableEls.length - 1];
+
+        element.addEventListener('keydown', function(e) {
+            if (e.key !== 'Tab') return;
+
+            if (e.shiftKey) { // Shift + Tab
+                if (document.activeElement === firstFocusableEl) {
+                    lastFocusableEl.focus();
+                    e.preventDefault();
+                }
+            } else { // Tab
+                if (document.activeElement === lastFocusableEl) {
+                    firstFocusableEl.focus();
+                    e.preventDefault();
+                }
+            }
+        });
     };
 
     /**
@@ -121,29 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let currentGalleryPaths = [];
         let currentImageIndex = 0;
-
-        // Função para prender o foco dentro do modal
-        function trapFocus(element) {
-            const focusableEls = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])');
-            const firstFocusableEl = focusableEls[0];
-            const lastFocusableEl = focusableEls[focusableEls.length - 1];
-
-            element.addEventListener('keydown', function(e) {
-                if (e.key !== 'Tab') return;
-
-                if (e.shiftKey) { // Shift + Tab
-                    if (document.activeElement === firstFocusableEl) {
-                        lastFocusableEl.focus();
-                        e.preventDefault();
-                    }
-                } else { // Tab
-                    if (document.activeElement === lastFocusableEl) {
-                        firstFocusableEl.focus();
-                        e.preventDefault();
-                    }
-                }
-            });
-        }
 
         function openModal(clickedImage) {
             const mainImage = clickedImage.src;
@@ -277,33 +281,33 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     /**
-     * Inicializa o menu hambúrguer para telas móveis.
+     * Altera o comportamento do menu dropdown em telas de toque.
+     * Em vez de navegar, o primeiro toque no link "Coleções" abre o submenu.
      */
-    const initializeHamburgerMenu = () => {
-        const hamburgerButton = document.getElementById('hamburger-button');
-        const nav = document.querySelector('nav');
-        const navLinks = nav.querySelectorAll('a');
+    const initializeMobileDropdown = () => {
+        const dropdown = document.querySelector('.dropdown');
+        if (!dropdown) return;
 
-        if (!hamburgerButton || !nav) return;
+        const dropdownButton = dropdown.querySelector('.dropbtn');
 
-        hamburgerButton.addEventListener('click', () => {
-            const isOpened = nav.classList.toggle('nav-open');
-            const icon = hamburgerButton.querySelector('i');
-            
-            // Troca o ícone entre hambúrguer e "X"
-            if (isOpened) {
-                icon.className = 'fas fa-times';
-            } else {
-                icon.className = 'fas fa-bars';
-            }
-        });
+        // Detecta se é um dispositivo de toque para aplicar o comportamento de clique
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-        // Fecha o menu ao clicar em um link (útil para links de âncora como #contato)
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('nav-open');
+        if (isTouchDevice) {
+            dropdownButton.addEventListener('click', function(event) {
+                // Impede a ação padrão do link (navegar para produtos.html)
+                event.preventDefault();
+                // Adiciona ou remove a classe que controla a visibilidade do dropdown
+                dropdown.classList.toggle('dropdown-open');
             });
-        });
+
+            // Adiciona um listener para fechar o dropdown se o usuário clicar fora dele
+            document.addEventListener('click', function(event) {
+                if (!dropdown.contains(event.target)) {
+                    dropdown.classList.remove('dropdown-open');
+                }
+            });
+        }
     };
 
     // Inicia o processo de carregamento dos componentes, que por sua vez chamará a inicialização dos outros scripts.
