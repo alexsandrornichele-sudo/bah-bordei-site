@@ -3,25 +3,6 @@
  * Orquestra o carregamento de componentes e a inicialização de funcionalidades.
  */
 document.addEventListener('DOMContentLoaded', function() {
-    
-    /**
-     * Carrega o cabeçalho do arquivo header.html e o insere na página.
-     * Depois de carregar, inicializa os scripts que dependem dele.
-     */
-    const loadSharedComponents = () => {
-        const headerPromise = fetch('header.html').then(res => res.ok ? res.text() : Promise.reject('header.html não encontrado'));
-        const footerPromise = fetch('footer.html').then(res => res.ok ? res.text() : Promise.reject('footer.html não encontrado'));
-
-        Promise.all([headerPromise, footerPromise])
-            .then(([headerData, footerData]) => {
-                document.querySelector('header').innerHTML = headerData;
-                document.querySelector('#footer-container').innerHTML = footerData;
-
-                // Agora que TUDO foi carregado, inicializamos os scripts
-                initializeAllScripts();
-            })
-            .catch(error => console.error("Erro ao carregar componentes:", error));
-    };
 
     /**
      * Aplica o efeito de máquina de escrever a um elemento.
@@ -34,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         textElement.innerHTML = ''; // Limpa o texto original
         let i = 0;
 
-        const type = () => {
+        const type = () => { // Função aninhada para o efeito de digitação
             if (i < text.length) {
                 textElement.innerHTML += text.charAt(i);
                 if (text.charAt(i) === ' ') textElement.style.whiteSpace = 'normal'; // Permite quebra de linha
@@ -48,19 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         type(); // Inicia o efeito
-    };
-
-    /**
-     * Agrupa todas as funções de inicialização que devem rodar após o carregamento dos componentes.
-     */
-    const initializeAllScripts = () => {
-        typeWriterEffect();
-        initializeSlider();
-        initializeGalleryModal();
-        initializeContactModal();
-        initializeBackToTop();
-        initializeFadeInObserver();
-        initializeMobileDropdown();
     };
 
     /**
@@ -199,12 +167,12 @@ document.addEventListener('DOMContentLoaded', function() {
             img.addEventListener('click', () => openModal(img));
         });
 
-        if(closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-        if(modal) modal.addEventListener('click', (e) => {
+        if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+        if (modal) modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
         });
-        if(prevBtn) prevBtn.addEventListener('click', showPrevImage);
-        if(nextBtn) nextBtn.addEventListener('click', showNextImage);
+        if (prevBtn) prevBtn.addEventListener('click', showPrevImage);
+        if (nextBtn) nextBtn.addEventListener('click', showNextImage);
 
         document.addEventListener('keydown', (e) => {
             if (modal && modal.style.display === 'block') {
@@ -219,8 +187,14 @@ document.addEventListener('DOMContentLoaded', function() {
      * Inicializa o modal de contato (Ligar/WhatsApp).
      */
     const initializeContactModal = () => {
-        const contactModal = document.getElementById('contact-modal');
-        if (!contactModal) return;
+        let contactModal = document.getElementById('contact-modal'); // Use let to allow re-assignment if created
+        if (!contactModal) { // Create if it doesn't exist
+            contactModal = document.createElement('div');
+            contactModal.id = 'contact-modal';
+            contactModal.className = 'modal';
+            // O conteúdo interno do modal deve ser adicionado aqui ou já existir no HTML.
+            document.body.appendChild(contactModal);
+        }
 
         const phoneTriggers = document.querySelectorAll('.phone-modal-trigger');
         const closeContactModal = contactModal.querySelector('.close-contact-modal');
@@ -238,8 +212,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (closeContactModal) {
             closeContactModal.onclick = function() {
                 contactModal.style.display = "none";
-                document.body.style.overflow = 'auto';
-            };
+                document.body.style.overflow = 'auto'; // Fechamento do onclick
+            }
         }
 
         window.addEventListener('click', function(event) {
@@ -261,9 +235,16 @@ document.addEventListener('DOMContentLoaded', function() {
      * Inicializa o botão "Voltar ao Topo".
      */
     const initializeBackToTop = () => {
-        const backToTopButton = document.getElementById('back-to-top');
-
-        if (!backToTopButton) return;
+        let backToTopButton = document.getElementById('back-to-top'); // Use let
+        if (!backToTopButton) { // Create if it doesn't exist
+            backToTopButton = document.createElement('a');
+            backToTopButton.id = 'back-to-top';
+            backToTopButton.className = 'back-to-top';
+            backToTopButton.href = '#';
+            backToTopButton.title = 'Voltar ao topo';
+            backToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
+            document.body.appendChild(backToTopButton);
+        }
 
         // Mostra ou esconde o botão baseado na posição de rolagem
         window.onscroll = function() {
@@ -282,37 +263,66 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     /**
-     * Altera o comportamento do menu dropdown em telas de toque.
-     * Em vez de navegar, o primeiro toque no link "Coleções" abre o submenu.
+     * Inicializa a funcionalidade de rolagem suave para a barra de navegação em dispositivos móveis.
+     * Ao clicar em um item, a navegação rola para centralizá-lo.
      */
-    const initializeMobileDropdown = () => {
-        const dropdowns = document.querySelectorAll('.dropdown');
-        if (!dropdowns.length) return;
-    
-        dropdowns.forEach(dropdown => {
-            const dropbtn = dropdown.querySelector('.dropbtn');
-            const dropdownContent = dropdown.querySelector('.dropdown-content');
-    
-            if (dropbtn) {
-                dropbtn.addEventListener('click', function(event) {
-                    // Em telas menores, previne a navegação e controla o submenu
-                    if (window.innerWidth <= 768) {
-                        event.preventDefault();
-    
-                        // Verifica se o submenu clicado já está aberto
-                        const isVisible = dropdown.classList.contains('dropdown-open');
-    
-                        // Fecha todos os submenus abertos
-                        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('dropdown-open'));
-    
-                        // Se não estava visível, abre o submenu clicado
-                        if (!isVisible) {
-                            dropdown.classList.add('dropdown-open');
-                        }
-                    }
+    const initializeNavScroller = () => {
+        const navUl = document.querySelector('nav ul');
+        if (!navUl) return;
+
+        const currentPath = window.location.pathname;
+        let navScrollPositions = JSON.parse(sessionStorage.getItem('navScrollPositions') || '{}');
+
+        const lastClickedHref = sessionStorage.getItem('lastClickedNavLink');
+        let scrolledToClickedLink = false;
+
+        // 1. Tenta rolar para o último link clicado (maior prioridade)
+        if (lastClickedHref) {
+            // Itera sobre os links para encontrar o correspondente, pois o atributo href pode ser relativo
+            // enquanto lastClickedHref é absoluto. A propriedade .href do elemento é sempre absoluta.
+            let targetLink = null;
+            navUl.querySelectorAll('a').forEach(link => {
+                if (link.href === lastClickedHref) {
+                    targetLink = link;
                 }
-            );
-        }});
+            });
+
+            if (targetLink) {
+                const item = targetLink.parentElement; // O elemento <li>
+                
+                // Calcula a posição para centralizar o item
+                // item.offsetLeft é a posição do item em relação ao início do seu container rolável (navUl)
+                // A fórmula subtrai metade da largura da nav e adiciona metade da largura do item para achar o ponto de centralização.
+                let scrollLeft = item.offsetLeft - (navUl.offsetWidth / 2) + (item.offsetWidth / 2);
+
+                // Garante que a posição de rolagem não seja menor que 0 (início da barra)
+                scrollLeft = Math.max(0, scrollLeft);
+                // E também não seja maior que o máximo possível (final da barra), evitando espaços em branco.
+                // navUl.scrollWidth é a largura total do conteúdo, incluindo a parte não visível.
+                scrollLeft = Math.min(scrollLeft, navUl.scrollWidth - navUl.offsetWidth);
+
+                if (item === navUl.firstElementChild) { // Se for o primeiro item, rola para o começo
+                    navUl.scrollTo({ left: 0, behavior: 'smooth' }); 
+                } else {
+                    navUl.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                }
+                scrolledToClickedLink = true;
+            }
+            sessionStorage.removeItem('lastClickedNavLink'); // Limpa a referência para não afetar a próxima navegação manual.
+        }
+
+        // 2. Se não rolou para um link clicado, aplica a posição de rolagem manual salva
+        if (!scrolledToClickedLink && navScrollPositions[currentPath]) {
+            navUl.scrollTo({ left: parseFloat(navScrollPositions[currentPath]), behavior: 'auto' });
+        }
+
+        // Adiciona um listener para salvar a posição de rolagem quando o usuário rola a nav
+        navUl.addEventListener('scroll', () => {
+            if (window.innerWidth <= 768) { // Salva apenas em dispositivos móveis
+                navScrollPositions[currentPath] = navUl.scrollLeft; // Salva a posição atual associada à URL da página
+                sessionStorage.setItem('navScrollPositions', JSON.stringify(navScrollPositions));
+            }
+        });
     };
 
     /**
@@ -341,7 +351,99 @@ document.addEventListener('DOMContentLoaded', function() {
         // Inicia a observação para cada elemento
         animatedElements.forEach(el => observer.observe(el));
     };
+    /**
+     * Agrupa todas as funções de inicialização que devem rodar para o conteúdo principal.
+     * Chamada no carregamento inicial e após cada carregamento de conteúdo SPA.
+     */
+    const initializeMainContentFeatures = () => {
+        initializeSlider();
+        initializeGalleryModal();
+        initializeFadeInObserver();
+        initializeNavScroller();
+    };
 
-    // Inicia o processo de carregamento dos componentes, que por sua vez chamará a inicialização dos outros scripts.
-    loadSharedComponents();
+    /**
+     * Agrupa todas as funções de inicialização que rodam apenas uma vez por página.
+     * Chamada apenas no carregamento inicial completo da página.
+     */
+    const initializeGlobalFeatures = () => {
+        typeWriterEffect();
+        initializeContactModal(); // Modal de contato é global
+        initializeBackToTop();    // Botão de voltar ao topo é global
+    };
+
+    // --- LÓGICA DE ROTEAMENTO (SPA) ---
+
+    const mainContent = document.querySelector('main');
+
+    /**
+     * Carrega o conteúdo de uma URL e o injeta na tag <main>.
+     * @param {string} url - A URL da página a ser carregada.
+     */
+    const loadContent = async (url) => {
+        // Não limpamos navScrollPositions aqui, pois ele é específico por URL e pode ser restaurado via popstate
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Página não encontrada');
+
+            const text = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+
+            const newMain = doc.querySelector('main');
+            const newNav = doc.querySelector('nav'); // Procura pela nova navegação
+            const newTitle = doc.querySelector('title').innerText;
+            const currentNav = document.querySelector('nav'); // Seleciona a navegação atual
+
+            if (newMain && currentNav) {
+                mainContent.innerHTML = newMain.innerHTML;
+                if (newNav) { // Substitui o elemento <nav> inteiro para garantir que classes (ex: .nav-home) sejam aplicadas corretamente.
+                    currentNav.replaceWith(newNav);
+                }
+                document.title = newTitle;
+                window.scrollTo({ top: 0, behavior: 'auto' });
+                initializeMainContentFeatures(); // Re-inicializa scripts para o novo conteúdo
+            }
+        } catch (error) {
+            console.error('Erro ao carregar a página:', error);
+            mainContent.innerHTML = '<h1>Erro ao carregar o conteúdo.</h1>';
+        }
+    };
+
+    /**
+     * Intercepta cliques em links internos para usar a navegação SPA.
+     */
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+
+        // Verifica se é um link interno válido
+        if (link && link.href.startsWith(window.location.origin) && !link.href.includes('#') && link.target !== '_blank') {
+            // Se o link clicado estiver dentro da barra de navegação e for um dispositivo móvel, salva o href
+            if (link.closest('nav') && window.innerWidth <= 768) {
+                sessionStorage.setItem('lastClickedNavLink', link.href);
+            }
+
+            e.preventDefault(); // Previne o recarregamento da página
+            const url = link.href;
+
+            // Não faz nada se o link for para a página atual
+            if (url === window.location.href) return;
+
+            history.pushState({}, '', url); // Atualiza a URL na barra de endereço
+            loadContent(url);
+        }
+    });
+
+    /**
+     * Lida com os botões de voltar/avançar do navegador.
+     */
+    window.addEventListener('popstate', () => {
+        loadContent(window.location.href);
+    });
+
+    // --- INICIALIZAÇÃO GLOBAL ---
+    // Inicializa funcionalidades globais (que rodam uma vez) e de conteúdo (que rodam a cada mudança de página)
+    initializeGlobalFeatures();
+    initializeMainContentFeatures();
+
 });

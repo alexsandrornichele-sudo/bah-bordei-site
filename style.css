@@ -127,39 +127,8 @@ nav ul li a {
 
 nav ul li a:hover,
 nav ul li a:focus {
-    color: #e4a79d;
+    color: #C17C6C; /* Cor ajustada para melhor contraste */
     transform: translateY(-3px);
-}
-
-/* Estilos para o menu Dropdown */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropbtn {
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #FAF4E0;
-    min-width: 220px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 4px;
-    padding: 10px 0;
-}
-
-.dropdown-content a {
-    color: #6C4A3A;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-size: 16px; /* Tamanho de fonte menor para os itens do dropdown */
-    font-weight: normal; /* Fonte normal, não negrito */
 }
 
 .dropdown-content a:hover,
@@ -167,16 +136,6 @@ nav ul li a:focus {
     background-color: #F7B393;
     color: #fff;
     transform: none; /* Remove o efeito de subir do link principal */
-}
-
-.dropdown:hover .dropdown-content,
-.dropdown:focus-within .dropdown-content {
-    display: block;
-}
-
-/* Estilo para o dropdown aberto via JS em mobile */
-.dropdown-open .dropdown-content {
-    display: block;
 }
 
 
@@ -242,8 +201,14 @@ nav ul li a:focus {
     transform: scale(1.05);
 }
 
-.call-button { background-color: #F7B393; } /* Cor principal do site */
-.whatsapp-button-modal { background-color: #25D366; } /* Cor do WhatsApp */
+.call-button {
+    background-color: #F7B393;
+    color: #6C4A3A; /* Alterado de branco para marrom para garantir contraste */
+}
+
+.whatsapp-button-modal {
+    background-color: #25D366; /* Cor do WhatsApp */
+}
 
 
 /* ==========================================================================
@@ -341,7 +306,7 @@ nav ul li a:focus {
 
 .product-types h2 a:hover,
 .product-types h2 a:focus {
-    color: #e4a79d; /* Muda para a cor de destaque ao passar o mouse */
+    color: #C17C6C; /* Cor ajustada para melhor contraste */
 }
 
 /* Grid de Coleções (produtos.html) */
@@ -411,7 +376,7 @@ nav ul li a:focus {
 
 .collection-item h3 a:hover,
 .collection-item h3 a:focus {
-    color: #e4a79d;
+    color: #C17C6C; /* Cor ajustada para melhor contraste */
 }
 
 /* Estilo para coleções futuras */
@@ -677,55 +642,9 @@ footer {
 /* ==========================================================================
    Estilos Responsivos (Media Queries)
    ========================================================================== */
-
-/* Para tablets e celulares maiores (até 768px) */
-@media (max-width: 768px) {
-    /* Reduz o padding lateral para dar mais espaço ao conteúdo */
-    .product-box-container {
-        padding: 0 20px;
-    }
-
-    .product-list {
-        padding: 20px;
-    }
-
-    .product-grid {
-        padding: 0;
-    }
-
-    /* Ajusta a navegação para telas menores */
-    nav ul li {
-        margin: 0 10px;
-    }
-
-    nav ul li a {
-        font-size: 18px;
-    }
-
-    .dropdown-content {
-        min-width: 200px;
-    }
-
-}
-
-/* Para celulares (até 480px) */
-@media (max-width: 480px) {
-    /* Ajusta o cabeçalho para caber na tela */
-    header .logo {
-        width: 80vw; /* Reduz o tamanho do container do logo */
-        height: 80vw;
-        max-width: 300px; /* Define um tamanho máximo para não ficar enorme */
-        max-height: 300px;
-    }
-
-    header .logo img {
-        max-height: 65%; /* Reduz a imagem da logo */
-    }
-
-    header h1 {
-        font-size: 1.2em; /* Reduz a fonte do texto curvado */
-    }
-
+ 
+ /* Para celulares (até 480px) */
+ @media (max-width: 480px) {
     /* Faz as caixas de produto da home ocuparem mais espaço */
     .product-box {
         width: 100%;
@@ -736,7 +655,7 @@ footer {
     .collection-grid {
         grid-template-columns: 1fr;
         padding: 20px;
-    }
+    } 
 
     /* Empilha os ícones de contato no rodapé */
     .contact-info {
@@ -749,11 +668,6 @@ footer {
         text-align: center;
     }
 
-    /* Permite que o texto do cabeçalho quebre a linha em telas muito pequenas */
-    #text-bottom {
-        white-space: normal;
-        text-align: center;
-    }
 }
 
 /* ==========================================================================
@@ -786,7 +700,7 @@ footer {
 
 .back-to-top:hover,
 .back-to-top:focus {
-    background-color: #e4a79d; /* Cor de destaque */
+    background-color: #C17C6C; /* Cor ajustada para melhor contraste */
     outline: none;
 }
 
@@ -814,57 +728,107 @@ footer {
 /* ========================================= */
 @media (max-width: 768px) {
 
-    /* --- Ajustes no Cabeçalho --- */
+    /* --- AJUSTES GERAIS DE LAYOUT --- */
+    .product-box-container, .product-list {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .product-grid {
+        padding: 0;
+    }
+
+    /* --- AJUSTES DO CABEÇALHO --- */
+    header {
+        padding: 10px 0 10px 0; /* Adiciona padding inferior para criar margem */
+    }
+
     header .logo {
-        padding-bottom: 0; /* Remove o preenchimento inferior da logo */
+        gap: 10px; /* Espaço entre logo e slogan */
     }
 
     header .logo img {
-        width: 150px; /* Diminui o tamanho da logo */
+        max-height: 160px; /* Aumenta um pouco a logo */
     }
 
-    header #text-bottom {
-        font-size: 1em; /* Diminui a fonte do slogan */
-        margin-top: 5px; /* Reduz a margem superior do slogan */
+    header h1 {
+        font-size: 0.8em; /* Retorna a um tamanho de fonte legível */
+        max-width: 180px;
+        line-height: 1.3;
+        min-height: 2.6em; /* **FIX IMPORTANTE**: Reserva espaço para 2 linhas (2 * 1.3em) e evita o "pulo" do layout */
     }
 
+    /* --- AJUSTES DA NAVEGAÇÃO --- */
     nav {
-        margin-top: 10px; /* Reduz o espaço entre o slogan e a navegação */
+        padding: 8px 0;
+        border-bottom-width: 7px;
     }
 
-    /* --- Ajustes no Slider (Página Inicial) --- */
+    nav ul {
+        display: flex; /* Alinha os itens em linha */
+        overflow-x: auto; /* Permite a rolagem horizontal */
+        white-space: nowrap; /* Impede que os itens quebrem a linha */
+        justify-content: flex-start; /* Alinha os itens à esquerda */
+        -webkit-overflow-scrolling: touch; /* Melhora a experiência de rolagem em iOS */
+        scroll-behavior: smooth; /* Anima a rolagem feita via JavaScript */
+        padding: 0 10px; /* Adiciona um pequeno espaçamento nas laterais */
+    }
+
+    /* Centraliza a navegação apenas na página inicial, que tem menos itens */
+    .nav-home ul {
+        justify-content: center;
+    }
+
+    /* Esconde a barra de rolagem para um visual mais limpo */
+    nav ul::-webkit-scrollbar {
+        display: none;
+    }
+
+    nav ul li {
+        margin: 0 8px; /* Reduz o espaçamento entre os itens do menu */
+    }
+
+    nav ul li a {
+        font-size: 0.9em; /* Reduz o tamanho da fonte para mobile (aprox. 16px) */
+    }
+
     .slider {
-        height: 50vw; /* Altura proporcional à largura da tela */
-        min-height: 200px; /* Garante uma altura mínima */
+        height: 30px; /* Ajusta a altura do slider */
+        min-height: 180px;
     }
 
-    /* --- Ajustes de Fonte (Geral) --- */
-    h2 {
-        font-size: 1.5em; /* Tamanho base para h2 em mobile */
-    }
-
-    h3 {
-        font-size: 1.2em; /* Tamanho base para h3 em mobile */
-    }
-
-    /* --- Ajustes de Fonte (Página Inicial) --- */
+    /* --- AJUSTES GERAIS DE FONTE --- */
     .presentation h2 {
-        font-size: 1.1em; /* Fonte da seção de apresentação */
+        font-size: 1em;
         line-height: 1.4;
     }
 
-    .product-types > h2 {
-        font-size: 1.3em; /* Fonte do título "Veja abaixo..." */
+    .presentation p, .product-list p {
+        font-size: 0.8em;
     }
 
-    .product-types .product-box-container + h2 {
-        font-size: 1.2em; /* Fonte do "Quer saber sobre..." */
-        padding: 15px;
+    .product-types h2, .product-list h2 {
+        font-size: 0.9em;
     }
 
-    /* --- Ajustes de Fonte (Rodapé) --- */
+    .product-list h3 {
+        font-size: 0.8em;
+    }
+
+    .product-box h3, .collection-item h3, .product-card h3 {
+        font-size: 0.9em;
+    }
+
+    .product-box p {
+        font-size: 0.8em;
+    }
+
+    .direitos {
+        font-size: 0.8em;
+    }
+
     footer#contato h3 {
-        font-size: 1.2em; /* Fonte do "Vamos Bordar Sua Ideia?!" */
-        padding: 0 15px;
+        font-size: 0.9em;
+        max-width: 250px; /* Força a quebra de linha em telas menores */
+        margin: 0 auto; /* Garante que o bloco de texto permaneça centralizado */
     }
 }

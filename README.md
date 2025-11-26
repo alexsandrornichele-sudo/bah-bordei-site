@@ -1,49 +1,65 @@
-# Bah!Bordei - Site Institucional
+# Website Bah!Bordei
 
-Este é o repositório do site institucional da Bah!Bordei, uma marca de bordados artesanais. O site foi desenvolvido para apresentar as coleções de produtos, contar a história da marca e facilitar o contato para encomendas.
+## 📖 Descrição
 
-**Acesse o site ao vivo:** [https://alexsandrornichele-sudo.github.io/bah-bordei-site/](https://alexsandrornichele-sudo.github.io/bah-bordei-site/)
+Este é o código-fonte do site institucional da **Bah!Bordei**, um ateliê de bordados artesanais. O projeto foi desenvolvido como um portfólio online para exibir as coleções de produtos, contar a história da marca e facilitar o contato para encomendas.
 
----
-
-## Tecnologias Utilizadas
-
-*   **HTML5:** Para a estrutura e conteúdo das páginas.
-*   **CSS3:** Para estilização, layout e responsividade (incluindo Flexbox e Grid).
-*   **JavaScript (ES6):** Para interatividade, como a animação de digitação, os modais (pop-ups) e o carregamento dinâmico do cabeçalho e rodapé.
+O site foi construído com HTML, CSS e JavaScript puro, utilizando uma arquitetura de **Single Page Application (SPA)** para proporcionar uma navegação fluida e rápida, sem a necessidade de recarregar a página a cada clique.
 
 ---
 
-## Estrutura do Projeto
+## ✨ Funcionalidades Principais
 
-O projeto foi estruturado para ser modular e de fácil manutenção.
-
--   `index.html`: A página inicial do site.
--   `produtos.html`: A página que exibe todas as coleções disponíveis.
--   `colecao-*.html`: Páginas dedicadas para cada coleção de produtos.
--   `header.html`: **Arquivo centralizado do cabeçalho.** Qualquer alteração feita aqui aparecerá em todas as páginas.
--   `footer.html`: **Arquivo centralizado do rodapé.** Contém as informações de contato, modais e o botão "Voltar ao Topo".
--   `style.css`: A folha de estilos principal, contendo toda a aparência do site.
--   `script.js`: O arquivo JavaScript principal, responsável por:
-    -   Carregar o `header.html` e o `footer.html` em todas as páginas.
-    -   Controlar a animação de "máquina de escrever".
-    -   Gerenciar os modais (pop-ups) de galeria de imagens e de contato.
-    -   Gerenciar o comportamento do menu suspenso em telas de toque (mobile).
--   `/images`: Pasta contendo todas as imagens do site.
+-   **Navegação SPA (Single Page Application):** Transições de página instantâneas que carregam apenas o conteúdo necessário, melhorando a experiência do usuário.
+-   **Design Responsivo:** Layout adaptado para uma visualização otimizada em desktops, tablets e smartphones.
+-   **Navegação Móvel Otimizada:** A barra de navegação em dispositivos móveis é horizontal e rolável, com salvamento de posição e centralização automática do item clicado.
+-   **Componentes Dinâmicos e Interativos:**
+    -   **Slider de Imagens:** Na página inicial, apresentando os principais trabalhos.
+    -   **Galeria de Imagens (Lightbox):** Permite visualizar as imagens dos produtos em tamanho maior, com navegação entre elas.
+    -   **Modal de Contato:** Um pop-up que oferece opções de contato (ligação e WhatsApp) de forma acessível.
+    -   **Animações Sutis:** Efeito de "máquina de escrever" no slogan e animações de fade-in nos produtos conforme o usuário rola a página.
+-   **Atualização Dinâmica da Navegação:** A barra de navegação é atualizada dinamicamente para exibir os links relevantes para cada seção (ex: lista de produtos na página de produtos).
 
 ---
 
-## Como Fazer Alterações
+## 📂 Estrutura de Arquivos
 
-### Para alterar o Cabeçalho ou Rodapé:
-Basta editar os arquivos `header.html` ou `footer.html`, respectivamente. As mudanças serão aplicadas a todo o site automaticamente.
+```
+/
+├── index.html                  # Página inicial
+├── produtos.html               # Página com a visão geral das coleções
+├── colecao-porta-aliancas.html # Página de uma coleção específica (e outras)
+├── style.css                   # Folha de estilos principal
+├── script.js                   # Lógica de interatividade e SPA
+└── /images/                    # Pasta com todas as imagens do site
+```
 
-### Para adicionar um novo produto a uma coleção existente:
-1.  Abra o arquivo `colecao-*.html` correspondente.
-2.  Copie um bloco `<div class="product-card">...</div>` existente.
-3.  Cole-o abaixo e altere a imagem (`src`), o título (`<h3>`), a descrição (`<p>`) e o link do WhatsApp.
+---
 
-### Para publicar suas alterações:
+## 🛠️ Como Funciona
+
+### Lógica de SPA (`script.js`)
+
+O coração do site é o `script.js`, que gerencia a navegação sem recarregamento de página.
+
+1.  **Interceptação de Cliques:** Um `event listener` global captura cliques em links `<a>`.
+2.  **Prevenção de Recarregamento:** Se o link for interno, o comportamento padrão do navegador é prevenido com `e.preventDefault()`.
+3.  **Busca de Conteúdo:** A função `loadContent` utiliza a API `fetch` para buscar o conteúdo HTML da URL do link clicado.
+4.  **Atualização do DOM:** O HTML recebido é parseado. O conteúdo das tags `<main>` e `<nav>` da página atual é substituído pelo conteúdo das mesmas tags da página buscada.
+5.  **Atualização do Histórico:** A URL do navegador é atualizada com `history.pushState()`, e o evento `popstate` é usado para gerenciar os botões de "voltar" e "avançar".
+6.  **Reinicialização de Scripts:** Funções de inicialização de componentes (como o slider e a galeria) são chamadas novamente para que funcionem no novo conteúdo carregado.
+
+### Navegação Móvel (`initializeNavScroller`)
+
+Para telas menores, a barra de navegação se torna rolável.
+
+-   **Rolagem por Clique:** Ao clicar em um item, a barra rola suavemente para centralizá-lo.
+-   **Memória de Posição:** A posição de rolagem manual de cada página é salva no `sessionStorage`. Ao voltar para uma página, essa posição é restaurada, proporcionando uma experiência contínua.
+
+---
+
+## 🚀 Como Publicar Alterações
+
 Após fazer qualquer alteração nos arquivos, abra o terminal na pasta do projeto e execute os seguintes comandos:
 
 ```bash
