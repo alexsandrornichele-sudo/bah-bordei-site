@@ -1,4 +1,7 @@
-/* Importa a fonte Lora do Google Fonts */
+/* ==========================================================================
+   Configurações Gerais e Fontes
+   ========================================================================== */
+
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 /* Estilos Gerais */
@@ -10,10 +13,13 @@ body {
     color: #333;
 }
 
-/* Cabeçalho */
+/* ==========================================================================
+   Cabeçalho (Header)
+   ========================================================================== */
+
 header {
     text-align: center;
-    padding: 20px 0;
+    padding: 20px 0px;
     background-color: #F7B393;
 }
 
@@ -24,12 +30,11 @@ header {
 
 header .logo {
     position: relative; /* Necessário para posicionar os textos de forma absoluta */
-    width: 350px; /* Largura aproximada para conter a logo e os textos */
-    height: 350px; /* Altura aproximada */
     margin: 0 auto; /* Centraliza o container */
     display: flex; /* Para centralizar a imagem dentro do container */
-    justify-content: center; /* Para centralizar a imagem dentro do container */
+    flex-direction: column; /* Organiza os itens em coluna */
     align-items: center; /* Para centralizar a imagem dentro do container */
+    gap: 15px; /* Espaço entre a logo e o texto */
 }
 
 header .logo img {
@@ -43,22 +48,25 @@ header h1 {
     font-family: 'Lora', serif;
     font-size: 1.4em; /* Ajuste o tamanho conforme necessário */
     color: #6C4A3A;
-    position: absolute; /* Posiciona os textos sobre a logo */
-    /* Centraliza o texto para que a curva comece no lugar certo */
-    left: 50%;
-    transform: translateX(-50%); /* Centraliza o elemento */
-    /* A biblioteca CircleType fará o resto da mágica */
+    margin: 0; /* Remove margens padrão do h1 */
+    line-height: 1.2; /* Ajusta o espaçamento entre linhas */
 }
 
-/* Posiciona o texto superior */
-#text-top {
-    top: -5px; /* Aumenta a distância do topo */
-}
-
-/* Posiciona o texto inferior */
+/* Efeito de digitação para o texto do cabeçalho */
 #text-bottom {
-    bottom: 0px; /* Distância simétrica da base */
+    display: inline-block; /* Garante que o container se ajuste ao texto */
+    overflow: hidden; /* Garante que o texto não quebre a linha durante a animação */
+    white-space: nowrap; /* Mantém o texto em uma única linha */
+    border-right: .15em solid #e4a79d; /* O cursor da máquina de escrever */
+    animation: blink-caret .75s step-end infinite;
 }
+
+/* Animação do cursor piscando */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #e4a79d; }
+}
+
 
 /* Estilo para as linhas decorativas laterais */
 .decorative-line {
@@ -88,13 +96,25 @@ header h1 {
     }
 }
 
-/* Barra de Navegação */
+/* ==========================================================================
+   Barra de Navegação (Nav)
+   ========================================================================== */
+
 nav {
     background-color: #FAF4E0;
     padding: 20px 0;
     border-bottom: 10px solid #F7B393; /* Barra separadora */
 }
 
+/* Botão Hambúrguer (escondido por padrão) */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: #6C4A3A;
+    font-size: 24px;
+    cursor: pointer;
+}
 nav ul {
     list-style: none;
     margin: 0;
@@ -159,11 +179,15 @@ nav ul li a:focus {
     transform: none; /* Remove o efeito de subir do link principal */
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
     display: block;
 }
 
-/* Estilos para o Modal de Contato (Pop-up) */
+/* ==========================================================================
+   Modal de Contato (Pop-up)
+   ========================================================================== */
+
 .modal-contact-content {
     background-color: #FAF4E0; /* Cor de fundo do site */
     margin: 15% auto;
@@ -225,7 +249,10 @@ nav ul li a:focus {
 .whatsapp-button-modal { background-color: #25D366; } /* Cor do WhatsApp */
 
 
-/* Slider de Imagens */
+/* ==========================================================================
+   Conteúdo Principal (Main)
+   ========================================================================== */
+
 .slider {
     position: relative;
     width: 100%;
@@ -466,7 +493,10 @@ nav ul li a:focus {
     margin-top: auto; /* Empurra o parágrafo e o botão para baixo */
 }
 
-/* Estilos do Modal (Lightbox) */
+/* ==========================================================================
+   Modal da Galeria (Lightbox)
+   ========================================================================== */
+
 .modal {
     display: none; /* Oculto por padrão */
     position: fixed;
@@ -552,7 +582,10 @@ nav ul li a:focus {
     display: none;
 }
 
-/* Rodapé */
+/* ==========================================================================
+   Rodapé (Footer)
+   ========================================================================== */
+
 footer {
     display: flex;
     flex-direction: column;
@@ -675,14 +708,48 @@ footer {
     .dropdown-content {
         min-width: 200px;
     }
+
+    /* --- Estilos do Menu Hambúrguer --- */
+    .hamburger {
+        display: block; /* Mostra o botão em telas menores */
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1001; /* Garante que fique acima do menu */
+    }
+
+    nav {
+        padding: 0; /* Remove o padding para o menu ocupar a tela toda */
+    }
+
+    nav ul {
+        display: none; /* Esconde a lista de links por padrão */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #FAF4E0;
+        z-index: 1000;
+    }
+
+    /* Mostra o menu quando a classe 'nav-open' é adicionada */
+    nav.nav-open ul {
+        display: flex;
+    }
 }
 
 /* Para celulares (até 480px) */
 @media (max-width: 480px) {
     /* Ajusta o cabeçalho para caber na tela */
     header .logo {
-        width: 95vw; /* Usa a largura da tela como referência */
-        height: 95vw;
+        width: 80vw; /* Reduz o tamanho do container do logo */
+        height: 80vw;
+        max-width: 300px; /* Define um tamanho máximo para não ficar enorme */
+        max-height: 300px;
     }
 
     header .logo img {
@@ -703,6 +770,17 @@ footer {
     .collection-grid {
         grid-template-columns: 1fr;
         padding: 20px;
+    }
+
+    /* Empilha os ícones de contato no rodapé */
+    .contact-info {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Centraliza o texto de apresentação em telas pequenas para melhor legibilidade */
+    .presentation p {
+        text-align: center;
     }
 }
 

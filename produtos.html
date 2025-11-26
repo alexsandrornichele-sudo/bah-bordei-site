@@ -9,17 +9,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <a href="index.html" class="logo-link">
-            <div class="logo">
-                <img src="images/logo.jpg" alt="Logo Bah Bordei">
-                <h1 id="text-top">Aquarelando histórias</h1>
-                <h1 id="text-bottom">Bordando memórias</h1>
-            </div>
-        </a>
-    </header>
+    <!-- O cabeçalho será carregado aqui pelo script.js -->
+    <header></header>
 
     <nav>
+        <!-- Botão do Menu Hambúrguer (visível apenas em mobile) -->
+        <button class="hamburger" id="hamburger-button" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
         <ul>
             <li><a href="index.html">Início</a></li>
             <li class="dropdown">
@@ -112,7 +109,7 @@
                     <div class="collection-preview-images coming-soon">
                         <h1>Em Breve!</h1>
                     </div>
-                    <h3><a href="#">Caderno de Votos</a></h3>
+                    <h3 class="disabled-collection">Caderno de Votos</h3>
                 </div>
             </div>
         </section>

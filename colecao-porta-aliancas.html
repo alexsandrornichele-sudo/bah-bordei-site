@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta name="description" content="Conheça nossa coleção de porta alianças bordados à mão. Peças únicas para eternizar o seu momento especial.">
     <title>Coleção Porta Alianças - Bah Bordei</title>
     <link rel="stylesheet" href="style.css">
     <!-- Biblioteca de ícones Font Awesome -->
@@ -12,14 +12,17 @@
     <header>
         <a href="index.html" class="logo-link">
             <div class="logo">
-                <img src="images/logo.jpg" alt="Logo Bah Bordei">
-                <h1 id="text-top">Aquarelando histórias</h1>
-                <h1 id="text-bottom">Bordando memórias</h1>
+                <img src="images/logo.jpg" alt="Logo da Bah!Bordei, com o nome da marca ao centro de uma guirlanda de flores, com borboletas e uma abelha.">
+                <h1 id="text-bottom">Aquarelando histórias, bordando memórias</h1>
             </div>
         </a>
     </header>
 
     <nav>
+        <!-- Botão do Menu Hambúrguer (visível apenas em mobile) -->
+        <button class="hamburger" id="hamburger-button" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
         <ul>
             <li><a href="index.html">Início</a></li>
             <li class="dropdown">
@@ -115,22 +118,6 @@
             </div>
         </div>
     </div>
-    <!-- Adiciona a biblioteca CircleType.js -->
-    <script src="https://cdn.jsdelivr.net/npm/circletype@2.3.0/dist/circletype.min.js"></script>
     <script src="script.js"></script>
-
-    <!-- Modal/Lightbox para a Galeria de Imagens -->
-    <div id="gallery-modal" class="modal">
-        <span class="close-modal">&times;</span>
-        <div class="modal-content">
-            <a class="prev">&#10094;</a>
-            <img id="modal-image">
-            <a class="next">&#10095;</a>
-        </div>
-        <div class="thumbnail-container">
-            <!-- Thumbnails podem ser inseridas aqui no futuro -->
-        </div>
-    </div>
-
 </body>
 </html>

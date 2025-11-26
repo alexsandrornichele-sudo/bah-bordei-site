@@ -3,28 +3,68 @@
  * Orquestra o carregamento de componentes e a inicialização de funcionalidades.
  */
 document.addEventListener('DOMContentLoaded', function() {
-    // ==========================================================================
-    // INICIALIZAÇÃO DAS FUNCIONALIDADES
-    // ==========================================================================
+    
+    /**
+     * Carrega o cabeçalho do arquivo header.html e o insere na página.
+     * Depois de carregar, inicializa os scripts que dependem dele.
+     */
+    const loadSharedComponents = () => {
+        const headerPromise = fetch('header.html').then(res => res.ok ? res.text() : Promise.reject('header.html não encontrado'));
+        const footerPromise = fetch('footer.html').then(res => res.ok ? res.text() : Promise.reject('footer.html não encontrado'));
+
+        Promise.all([headerPromise, footerPromise])
+            .then(([headerData, footerData]) => {
+                document.querySelector('header').innerHTML = headerData;
+                document.querySelector('#footer-container').innerHTML = footerData;
+
+                // Agora que TUDO foi carregado, inicializamos os scripts
+                initializeAllScripts();
+            })
+            .catch(error => console.error("Erro ao carregar componentes:", error));
+    };
 
     /**
-     * Inicializa o efeito de texto curvado no cabeçalho.
+     * Aplica o efeito de máquina de escrever a um elemento.
      */
-    (function initializeCircleTypeText() {
-        const textTop = document.getElementById('text-top');
-        if (textTop && typeof CircleType !== 'undefined') {
-            new CircleType(textTop).radius(160);
-        }
-        const textBottom = document.getElementById('text-bottom');
-        if (textBottom && typeof CircleType !== 'undefined') {
-            new CircleType(textBottom).dir(-1).radius(150);
-        }
-    })();
+    const typeWriterEffect = () => {
+        const textElement = document.getElementById('text-bottom');
+        if (!textElement) return;
+
+        const text = textElement.innerHTML;
+        textElement.innerHTML = ''; // Limpa o texto original
+        let i = 0;
+
+        const type = () => {
+            if (i < text.length) {
+                textElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, 100); // Velocidade da digitação (em milissegundos)
+            } else {
+                // Quando a digitação termina, remove a animação do cursor
+                textElement.style.borderRight = 'none';
+                textElement.style.animation = 'none';
+            }
+        };
+
+        type(); // Inicia o efeito
+    };
+
+    /**
+     * Agrupa todas as funções de inicialização que devem rodar após o carregamento dos componentes.
+     */
+    const initializeAllScripts = () => {
+        typeWriterEffect();
+        initializeSlider();
+        initializeGalleryModal();
+        initializeContactModal();
+        initializeBackToTop();
+        initializeHamburgerMenu();
+    };
 
     /**
      * Inicializa o slider de imagens da página inicial.
      */
-    (function initializeSlider() {
+    const initializeSlider = () => {
         const slides = document.querySelector('.slides');
         if (!slides) return; // Sai da função se não estiver na página do slider
 
@@ -53,14 +93,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 slides.style.transform = `translateX(-${currentSlide * 100}%)`;
             }, 4000);
         }
-    })();
+    };
 
     /**
      * Inicializa o modal (lightbox) da galeria de imagens.
      */
-    (function initializeGalleryModal() {
+    const initializeGalleryModal = () => {
         const modal = document.getElementById('gallery-modal');
         if (!modal) return;
+
+        // Cria a estrutura interna do modal da galeria dinamicamente
+        // Isso evita repetição de código HTML nas páginas
+        modal.innerHTML = `
+            <span class="close-modal" aria-label="Fechar">&times;</span>
+            <div class="modal-content">
+                <a class="prev" aria-label="Imagem anterior">&#10094;</a>
+                <img id="modal-image" alt="Imagem do produto em destaque">
+                <a class="next" aria-label="Próxima imagem">&#10095;</a>
+            </div>
+        `;
 
         const modalImg = document.getElementById('modal-image');
         const closeModalBtn = modal.querySelector('.close-modal');
@@ -157,12 +208,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (e.key === 'Escape') closeModal();
             }
         });
-    })();
+    };
 
     /**
      * Inicializa o modal de contato (Ligar/WhatsApp).
      */
-    (function initializeContactModal() {
+    const initializeContactModal = () => {
         const contactModal = document.getElementById('contact-modal');
         if (!contactModal) return;
 
@@ -199,12 +250,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.style.overflow = 'auto';
             }
         });
-    })();
+    };
 
     /**
      * Inicializa o botão "Voltar ao Topo".
      */
-    (function initializeBackToTop() {
+    const initializeBackToTop = () => {
         const backToTopButton = document.getElementById('back-to-top');
 
         if (!backToTopButton) return;
@@ -223,6 +274,38 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    })();
+    };
 
+    /**
+     * Inicializa o menu hambúrguer para telas móveis.
+     */
+    const initializeHamburgerMenu = () => {
+        const hamburgerButton = document.getElementById('hamburger-button');
+        const nav = document.querySelector('nav');
+        const navLinks = nav.querySelectorAll('a');
+
+        if (!hamburgerButton || !nav) return;
+
+        hamburgerButton.addEventListener('click', () => {
+            const isOpened = nav.classList.toggle('nav-open');
+            const icon = hamburgerButton.querySelector('i');
+            
+            // Troca o ícone entre hambúrguer e "X"
+            if (isOpened) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        });
+
+        // Fecha o menu ao clicar em um link (útil para links de âncora como #contato)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('nav-open');
+            });
+        });
+    };
+
+    // Inicia o processo de carregamento dos componentes, que por sua vez chamará a inicialização dos outros scripts.
+    loadSharedComponents();
 });

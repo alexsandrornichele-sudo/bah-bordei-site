@@ -12,17 +12,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <a href="index.html" class="logo-link">
-            <div class="logo">
-                <img src="images/logo.jpg" alt="Logo da Bah!Bordei, com o nome da marca ao centro de uma guirlanda de flores, com borboletas e uma abelha.">
-                <h1 id="text-top">Aquarelando histórias</h1>
-                <h1 id="text-bottom">Bordando memórias</h1>
-            </div>
-        </a>
-    </header>
+    <!-- O cabeçalho será carregado aqui pelo script.js -->
+    <header></header>
 
     <nav>
+        <!-- Botão do Menu Hambúrguer (visível apenas em mobile) -->
+        <button class="hamburger" id="hamburger-button" aria-label="Abrir menu">
+            <i class="fas fa-bars"></i>
+        </button>
         <ul>
             <li><a href="index.html">Início</a></li>
             <li><a href="produtos.html">Produtos</a></li>
@@ -78,43 +75,11 @@
         </section>
     </main>
 
-   <footer id="contato">
-        <h3>Vamos Bordar Sua Ideia?! É fácil! Nos encontre aqui:</h3>
-        <div class="contact-info">
-            <a href="#" class="contact-phone phone-modal-trigger">
-                <i class="fas fa-phone"></i>
-                <span class="phone">51-98169.1835</span></a>
-            <a href="https://www.instagram.com/bahbordei/" class="social-media" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-instagram"></i>
-            <span class="instagram-text">@bahbordei</span></a>
-        </div>
-    </footer>
-
-    <footer class="direitos">
-        <p>2025 ©Bah!Bordei. Todos os direitos reservados.</p>
-    </footer>
-
-    <!-- Modal de Contato (Pop-up) -->
-    <div id="contact-modal" class="modal">
-        <div class="modal-contact-content">
-            <span class="close-contact-modal">&times;</span>
-            <h3>Como prefere o contato?</h3>
-            <div class="modal-buttons">
-                <a href="tel:+5551981691835" class="modal-button call-button">
-                    <i class="fas fa-phone"></i> Ligar
-                </a>
-                <a href="https://wa.me/5551981691835" class="modal-button whatsapp-button-modal" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
-            </div>
-        </div>
-    </div>
+    <!-- O rodapé e os modais serão carregados aqui -->
+    <div id="footer-container"></div>
 
     <!-- Adiciona a biblioteca CircleType.js -->
     <script src="https://cdn.jsdelivr.net/npm/circletype@2.3.0/dist/circletype.min.js"></script>
     <script src="script.js"></script>
-
-    <!-- Botão Voltar ao Topo -->
-    <a href="#" id="back-to-top" class="back-to-top" title="Voltar ao topo"><i class="fas fa-arrow-up"></i></a>
 </body>
 </html>
