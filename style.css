@@ -1,33 +1,32 @@
 /* ==========================================================================
-   Configurações Gerais e Fontes
+   1. CONFIGURAÇÕES GERAIS E FONTES
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
-/* Estilos Gerais */
+/* -- Estilos Gerais -- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #F7B393;
+    background-color: #FAF4E0;
     color: #333;
 }
 
 /* ==========================================================================
-   Cabeçalho (Header)
+   2. CABEÇALHO (HEADER)
    ========================================================================== */
 
 header {
     text-align: center;
     padding: 20px 0px;
-    background-color: #F7B393;
+    background-color: #FAF4E0;
 }
-
-/* Garante que o link do logo não tenha sublinhado */
 .logo-link {
     text-decoration: none;
 }
 
+/* Container da logo e textos */
 header .logo {
     position: relative; /* Necessário para posicionar os textos de forma absoluta */
     margin: 0 auto; /* Centraliza o container */
@@ -37,14 +36,14 @@ header .logo {
     gap: 15px; /* Espaço entre a logo e o texto */
 }
 
+/* Imagem da logo */
 header .logo img {
     max-height: 250px;
     height: auto;
     border-radius: 50%;
 }
 
-/* Aplica a nova fonte aos títulos do cabeçalho */
-header h1 {
+header h1 { /* Slogan abaixo da logo */
     font-family: 'Lora', serif;
     font-size: 1.4em; /* Ajuste o tamanho conforme necessário */
     color: #6C4A3A;
@@ -52,13 +51,12 @@ header h1 {
     line-height: 1.2; /* Ajusta o espaçamento entre linhas */
 }
 
-/* Efeito de digitação para o texto do cabeçalho */
+/* Efeito de digitação no slogan */
 #text-bottom {
     display: inline-block; /* Garante que o container se ajuste ao texto */
     border-right: .15em solid #e4a79d; /* O cursor da máquina de escrever */
     animation: blink-caret .75s step-end infinite;
 }
-
 /* Animação do cursor piscando */
 @keyframes blink-caret {
   from, to { border-color: transparent }
@@ -66,7 +64,7 @@ header h1 {
 }
 
 
-/* Estilo para as linhas decorativas laterais */
+/* Linhas decorativas laterais (não utilizado no momento) */
 .decorative-line {
     position: absolute;
     width: 170px; /* Aumenta o diâmetro para uma curvatura mais suave e afastar das palavras */
@@ -76,18 +74,14 @@ header h1 {
     /* Deixa apenas um quarto do círculo visível */
     border-color: transparent transparent transparent rgba(108, 74, 58, 0.6);
 }
-
 .line-left {
     /* Posiciona e rotaciona a linha da esquerda */
     transform: translateX(-60px) rotate(0deg); /* Corrige rotação e afasta para a esquerda */
 }
-
 .line-right {
     /* Posiciona e rotaciona a linha da direita */
     transform: translateX(61px) rotate(180deg); /* Corrige rotação e afasta para a direita */
 }
-
-/* Esconde as linhas em telas menores para não poluir o layout */
 @media (max-width: 400px) {
     .decorative-line {
         display: none;
@@ -95,13 +89,12 @@ header h1 {
 }
 
 /* ==========================================================================
-   Barra de Navegação (Nav)
+   3. BARRA DE NAVEGAÇÃO (NAV)
    ========================================================================== */
 
 nav {
-    background-color: #FAF4E0;
+    background-color: #6C4A3A; /* Cor marrom principal, alinhada à identidade visual */
     padding: 20px 0; /* Adiciona o padding vertical de volta para desktop */
-    border-bottom: 10px solid #F7B393; /* Barra separadora */
 }
 
 nav ul {
@@ -111,114 +104,35 @@ nav ul {
     text-align: center;
 }
 
-
 nav ul li {
     display: inline-block;
     margin: 0 20px;
 }
 
 nav ul li a {
-    color: #6C4A3A;
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
     font-size: 20px; /* Aumenta o tamanho da fonte */
     transition: color 0.3s, transform 0.3s;
 }
 
+/* Melhora o contraste no hover para acessibilidade */
 nav ul li a:hover,
 nav ul li a:focus {
-    color: #C17C6C; /* Cor ajustada para melhor contraste */
+    color: #F7B393; /* Cor com melhor contraste sobre o fundo marrom */
     transform: translateY(-3px);
 }
 
-.dropdown-content a:hover,
-.dropdown-content a:focus {
-    background-color: #F7B393;
-    color: #fff;
-    transform: none; /* Remove o efeito de subir do link principal */
-}
-
-
 /* ==========================================================================
-   Modal de Contato (Pop-up)
+   5. CONTEÚDO PRINCIPAL (MAIN)
    ========================================================================== */
 
-.modal-contact-content {
-    background-color: #FAF4E0; /* Cor de fundo do site */
-    margin: 15% auto;
-    padding: 30px;
-    border: 1px solid #888;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 10px;
-    text-align: center;
-    position: relative;
-    color: #6C4A3A; /* Cor do texto principal */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-
-.close-contact-modal {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-contact-modal:hover,
-.close-contact-modal:focus {
-    color: #6C4A3A;
-    text-decoration: none;
-    cursor: pointer;
-    /* Adiciona um anel de foco para acessibilidade */
-    outline: 2px solid #F7B393;
-    outline-offset: 2px;
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.modal-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 25px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    color: #fff;
-    transition: transform 0.2s;
-}
-
-.modal-button:hover,
-.modal-button:focus {
-    transform: scale(1.05);
-}
-
-.call-button {
-    background-color: #F7B393;
-    color: #6C4A3A; /* Alterado de branco para marrom para garantir contraste */
-}
-
-.whatsapp-button-modal {
-    background-color: #25D366; /* Cor do WhatsApp */
-}
-
-
-/* ==========================================================================
-   Conteúdo Principal (Main)
-   ========================================================================== */
-
+/* -- Seção do Slider -- */
 .slider {
     position: relative;
-    width: 100%;
-    height: 45vh; /* 60% da altura da tela */
+    width: 100%; /* Ocupa toda a largura */
+    height: 100vh; /* 60% da altura da tela */
     overflow: hidden;
 }
 
@@ -229,22 +143,21 @@ nav ul li a:focus {
     transition: transform 0.5s ease-in-out; /* Adiciona a animação de transição */
 }
 
+/* Slide individual */
 .slide {
     width: 100%; /* Cada slide ocupa 100% da largura do contêiner .slider */
     height: 100%;
     background-size: cover;
     background-position: center;
-    position: relative;
     flex-shrink: 0; /* Impede que os slides encolham */
 }
-/* Adição para o caso de usar tags <img> dentro do slide */
 .slide img {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Garante que a imagem cubra todo o espaço do slide */
 }
 
-/* Seção de Tipos de Produtos (index.html) */
+/* -- Seção de Apresentação e Tipos de Produtos (index.html) -- */
 .product-types {
     background-color: #FAF4E0; /* Cor de fundo que preenche a largura */
     color: #6C4A3A;
@@ -252,6 +165,7 @@ nav ul li a:focus {
     text-align: center;
 }
 
+/* Container das caixas de produto */
 .product-box-container {
     color: #6C4A3A;
     display: flex;
@@ -262,16 +176,15 @@ nav ul li a:focus {
     padding: 0 80px; /* Adicionamos o padding lateral aqui */
 }
 
+/* Bloco de texto de apresentação */
 .presentation {
     max-width: 1200px; /* Define uma largura máxima para o texto */
     margin: 0 auto 40px; /* Centraliza o bloco e adiciona margem inferior */
     padding: 0 20px; /* Adiciona espaçamento lateral para telas menores */
 }
-
 .presentation h2 {
     text-align: center; /* Mantém o título centralizado */
 }
-
 .presentation p {
     max-width: 800px;
     margin: 0 auto 10px;
@@ -279,37 +192,35 @@ nav ul li a:focus {
     text-align: center; /* Justifica os parágrafos */
 }
 
+/* Caixa individual de tipo de produto */
 .product-box {
-    background-color: #F7B393;
-    border: 1px solid #F7B393;
+    background-color: #FAF4E0;
+    border: 1px solid #6C4A3A;
     border-radius: 8px;
     padding: 20px;
     width: 250px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Adiciona uma transição suave */
 }
-
 .product-box:hover,
 .product-box:focus-within { /* Aplica o efeito quando um elemento dentro dele recebe foco */
     transform: translateY(-8px); /* Move a caixa para cima */
     box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Aumenta a sombra para dar profundidade */
 }
 
-
-/* Estilo para o link "aqui" dentro do h2 na seção de produtos */
+/* Link "aqui" dentro do h2 */
 .product-types h2 a {
     color: #6C4A3A; /* Mesma cor do texto do h2 */
     text-decoration: none; /* Remove o sublinhado */
     font-weight: bold; /* Mantém o negrito se desejar */
     transition: color 0.3s ease; /* Transição suave da cor */
 }
-
 .product-types h2 a:hover,
 .product-types h2 a:focus {
-    color: #C17C6C; /* Cor ajustada para melhor contraste */
+    color: #F7B393; /* Cor com melhor contraste sobre o fundo marrom */
 }
 
-/* Grid de Coleções (produtos.html) */
+/* -- Grid de Coleções (produtos.html) -- */
 .collection-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -318,6 +229,7 @@ nav ul li a:focus {
     justify-content: center;
 }
 
+/* Item individual da coleção */
 .collection-item {
     display: flex;
     flex-direction: column;
@@ -325,6 +237,7 @@ nav ul li a:focus {
     gap: 15px; /* Espaço entre a caixa de imagem e o título */
 }
 
+/* Caixa com a prévia das imagens da coleção */
 .collection-preview-images {
     width: 100%; /* Garante que a caixa ocupe toda a largura do item */
     display: grid;
@@ -336,13 +249,13 @@ nav ul li a:focus {
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .collection-preview-images img {
     width: 100%;
     height: 100px;
     object-fit: cover;
 }
 
+/* Estilo para coleções "Em Breve" */
 .collection-preview-images.coming-soon {
     display: flex;
     align-items: center;
@@ -350,37 +263,36 @@ nav ul li a:focus {
     height: 203px; /* 2x altura da imagem (100px) + gap (3px) */
 }
 
-.collection-preview-images.coming-soon h1 {
+.collection-preview-images.coming-soon h1 { /* Texto "Em Breve" */
     margin: 0;
     font-size: 1.8em;
     color: #c5b9b3;
     font-weight: bold;
 }
 
+/* Efeito de hover no item da coleção */
 .collection-item:hover .collection-preview-images,
 .collection-item:focus-within .collection-preview-images {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
+/* Título da coleção */
 .collection-item h3 {
     margin: 0;
     font-size: 1.2em;
 }
-
 .collection-item h3 a {
     text-decoration: none;
     color: #6C4A3A;
     transition: color 0.3s ease;
 }
-
 .collection-item h3 a:hover,
 .collection-item h3 a:focus {
-    color: #C17C6C; /* Cor ajustada para melhor contraste */
+    color: #F7B393; /* Cor com melhor contraste sobre o fundo marrom */
 }
 
-/* Estilo para coleções futuras */
-.disabled-collection {
+.disabled-collection { /* Título de coleção desabilitada */
     color: #c5b9b3; /* Cor mais clara para indicar que está desabilitado */
     cursor: not-allowed;
 }
@@ -393,6 +305,7 @@ nav ul li a:focus {
     color: #6C4A3A
 }
 
+/* Grid de produtos individuais (páginas de coleção) */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -401,6 +314,7 @@ nav ul li a:focus {
     padding: 0 5%;
 }
 
+/* Card de produto individual */
 .product-card {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -413,24 +327,25 @@ nav ul li a:focus {
     padding: 0 0 20px; /* Adiciona padding apenas na base */
 }
 
+/* Variação de card maior (se necessário) */
 .product-card-large {
     width: 350px; /* Define uma largura maior para este card específico */
     justify-self: center; /* Centraliza o card no grid se for o único item */
 }
 
+/* Imagem do card de produto */
 .product-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
     cursor: pointer; /* Indica que a imagem é clicável */
-    transition: opacity 0.3s ease;
 }
-
 .product-card h3 {
     margin: 15px 20px 10px;
     min-height: 2.4em; /* Garante espaço para duas linhas de título */
 }
 
+/* Botão de WhatsApp no card */
 .whatsapp-button {
     display: inline-block;
     background-color: #25D366;
@@ -442,13 +357,13 @@ nav ul li a:focus {
     margin: 0 20px; /* Define margens laterais */
     transition: background-color 0.3s, transform 0.3s;
 }
-
 .whatsapp-button:hover,
 .whatsapp-button:focus {
     background-color: #128C7E;
     transform: scale(1.05);
 }
 
+/* Descrição do produto no card */
 .product-card p {
     margin: 0 20px 20px; /* Ajusta margens */
     min-height: 3em; /* Garante espaço para duas linhas de descrição */
@@ -456,7 +371,7 @@ nav ul li a:focus {
 }
 
 /* ==========================================================================
-   Modal da Galeria (Lightbox)
+   6. MODAL DA GALERIA (LIGHTBOX)
    ========================================================================== */
 
 .modal {
@@ -472,6 +387,7 @@ nav ul li a:focus {
     padding-top: 50px;
 }
 
+/* Conteúdo do modal (imagem) */
 .modal-content {
     position: relative;
     margin: auto;
@@ -482,6 +398,7 @@ nav ul li a:focus {
     max-width: 700px;
 }
 
+/* Imagem dentro do modal */
 #modal-image {
     width: 100%;
     height: auto;
@@ -489,6 +406,7 @@ nav ul li a:focus {
     object-fit: contain;
 }
 
+/* Botão de fechar o modal da galeria */
 .close-modal {
     position: absolute;
     top: 15px;
@@ -499,7 +417,6 @@ nav ul li a:focus {
     transition: 0.3s;
     cursor: pointer;
 }
-
 .close-modal:hover,
 .close-modal:focus {
     color: #bbb;
@@ -509,6 +426,7 @@ nav ul li a:focus {
     outline-offset: 2px;
 }
 
+/* Setas de navegação da galeria */
 .prev, .next {
     cursor: pointer;
     position: absolute;
@@ -522,69 +440,68 @@ nav ul li a:focus {
     border-radius: 0 3px 3px 0;
     user-select: none;
 }
-
 .prev {
     left: 0;
     border-radius: 3px 0 0 3px;
 }
-
 .next {
     right: 0;
     border-radius: 3px 0 0 3px;
 }
-
 .prev:hover, .next:hover,
 .prev:focus, .next:focus {
     background-color: rgba(108, 74, 58, 0.8);
 }
 
-/* Esconde as setas se houver apenas uma imagem */
+/* Esconde as setas se houver apenas uma imagem no modal */
 .single-image .prev,
 .single-image .next {
     display: none;
 }
 
 /* ==========================================================================
-   Rodapé (Footer)
+   7. RODAPÉ (FOOTER)
    ========================================================================== */
 
 footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #F7B393;
-    color: #6C4A3A;
+    background-color: #6C4A3A; /* Cor marrom principal, para unificar com a navegação */
+    color: #ffffff;
     padding: 30px 20px; /* Aumenta o espaçamento vertical */
     text-align: center;
 }
-
 .footer-content h3 {
     margin-top: 0; /* Remove a margem do topo do h3 */
 }
 
+/* Container das informações de contato */
 .contact-info {
     margin-top: 20px; /* Adiciona espaço acima dos contatos */
     margin-bottom: 10px;
-}
-
-.contact-info {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 30px; /* Aumenta o espaço entre os ícones */
 }
 
+/* Rodapé secundário de direitos autorais */
 .direitos {
-    background-color: #FAF4E0;
+    background-color: #5a3e30; /* Tom de marrom mais escuro para o rodapé secundário */
     padding: 10px 20px; /* Reduz o espaçamento para um rodapé mais fino */
 }
+.direitos p {
+    color: #FAF4E0; /* Cor de texto clara para contrastar com o fundo escuro */
+}
 
+/* Links de contato (telefone, instagram) */
 .contact-info a {
     display: inline-flex;
     align-items: center;
     gap: 8px; /* Espaço entre o ícone e o texto */
-    color: #6C4A3A;
-    font-size: 24px;
+    color: #ffffff;
+    font-size: 1.5rem; /* 24px */
     text-decoration: none; /* Remove o sublinhado */
     transition: color 0.3s, transform 0.3s;
 }
@@ -594,18 +511,17 @@ footer {
     transform: scale(1.1);
 }
 
-/* Classe específica para o texto do Instagram */
+/* Textos específicos dentro dos links de contato */
 .instagram-text {
-    font-size: 18px; /* Ajuste o tamanho da fonte como desejar */
+    font-size: 1.125rem; /* 18px */
     vertical-align: middle; /* Alinha o texto com o ícone */
 }
-
 .phone {
-    font-size: 17px; /* Ajuste o tamanho da fonte como desejar */
+    font-size: 1.0625rem; /* 17px */
     vertical-align: middle; /* Alinha o texto com o ícone */
 }
 
-/* Navegação Secundária das Coleções */
+/* -- Navegação Secundária das Coleções (páginas de produto) -- */
 .collection-nav {
     width: 100%;
     padding: 15px 0;
@@ -613,18 +529,15 @@ footer {
     border-bottom: 2px solid rgba(108, 74, 58, 0.2);
     text-align: center;
 }
-
 .collection-nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-
 .collection-nav ul li {
     display: inline-block;
     margin: 5px 10px;
 }
-
 .collection-nav ul li a {
     text-decoration: none;
     color: #6C4A3A;
@@ -632,7 +545,6 @@ footer {
     border-radius: 20px;
     transition: background-color 0.3s, color 0.3s;
 }
-
 .collection-nav ul li a:hover,
 .collection-nav ul li a.active {
     background-color: #F7B393;
@@ -640,7 +552,7 @@ footer {
 }
 
 /* ==========================================================================
-   Estilos Responsivos (Media Queries)
+   8. ESTILOS RESPONSIVOS (MEDIA QUERIES)
    ========================================================================== */
  
  /* Para celulares (até 480px) */
@@ -671,8 +583,9 @@ footer {
 }
 
 /* ==========================================================================
-   Botão Voltar ao Topo
+   9. BOTÃO VOLTAR AO TOPO
    ========================================================================== */
+
 .back-to-top {
     position: fixed;
     bottom: 25px;
@@ -692,20 +605,18 @@ footer {
     visibility: hidden;
     transition: opacity 0.4s, visibility 0.4s, background-color 0.3s;
 }
-
 .back-to-top.show {
     opacity: 1;
     visibility: visible;
 }
-
 .back-to-top:hover,
 .back-to-top:focus {
-    background-color: #C17C6C; /* Cor ajustada para melhor contraste */
+    background-color: #F7B393; /* Cor com melhor contraste */
     outline: none;
 }
 
 /* ==========================================================================
-   Animação de Fade-in na Rolagem
+   10. ANIMAÇÃO DE FADE-IN NA ROLAGEM
    ========================================================================== */
 
 /* Estado inicial dos elementos que irão animar */
@@ -717,15 +628,15 @@ footer {
     transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease; /* Combina transições */
 }
 
-/* Classe adicionada via JS quando o elemento está visível */
+/* Classe adicionada via JavaScript quando o elemento está visível */
 .is-visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* ========================================= */
-/*          MEDIA QUERIES (Mobile)           */
-/* ========================================= */
+/* ==========================================================================
+   11. MEDIA QUERIES PARA DISPOSITIVOS MENORES (TABLETS E CELULARES)
+   ========================================================================== */
 @media (max-width: 768px) {
 
     /* --- AJUSTES GERAIS DE LAYOUT --- */
@@ -751,7 +662,7 @@ footer {
     }
 
     header h1 {
-        font-size: 0.8em; /* Retorna a um tamanho de fonte legível */
+        font-size: 0.8rem; /* Retorna a um tamanho de fonte legível */
         max-width: 180px;
         line-height: 1.3;
         min-height: 2.6em; /* **FIX IMPORTANTE**: Reserva espaço para 2 linhas (2 * 1.3em) e evita o "pulo" do layout */
@@ -788,40 +699,41 @@ footer {
     }
 
     nav ul li a {
-        font-size: 0.9em; /* Reduz o tamanho da fonte para mobile (aprox. 16px) */
+        font-size: 0.9rem; /* Reduz o tamanho da fonte para mobile (aprox. 14.4px) */
     }
 
+    /* --- AJUSTES DO SLIDER --- */
     .slider {
-        height: 30px; /* Ajusta a altura do slider */
-        min-height: 180px;
+        height: 250px; /* Simplificado: define uma altura fixa para o slider no mobile */
     }
 
     /* --- AJUSTES GERAIS DE FONTE --- */
     .presentation h2 {
-        font-size: 1em;
+        font-size: 1rem;
         line-height: 1.4;
     }
 
     .presentation p, .product-list p {
-        font-size: 0.8em;
+        font-size: 0.8rem;
     }
 
     .product-types h2, .product-list h2 {
-        font-size: 0.9em;
+        font-size: 0.9rem;
     }
 
     .product-list h3 {
-        font-size: 0.8em;
+        font-size: 0.8rem;
     }
 
     .product-box h3, .collection-item h3, .product-card h3 {
-        font-size: 0.9em;
+        font-size: 0.9rem;
     }
 
     .product-box p {
-        font-size: 0.8em;
+        font-size: 0.8rem;
     }
 
+    /* --- AJUSTES DO RODAPÉ --- */
     .direitos {
         font-size: 0.8em;
     }
