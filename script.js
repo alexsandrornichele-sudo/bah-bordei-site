@@ -1,12 +1,11 @@
 /**
- * Função principal que é executada quando o conteúdo da página é carregado.
- * Orquestra o carregamento de componentes e a inicialização de funcionalidades.
+ * @file Script principal para o site Bah!Bordei.
+ * @description Gerencia a navegação SPA, inicialização de componentes como slider,
+ * modais, animações e outras funcionalidades interativas.
  */
+
 document.addEventListener('DOMContentLoaded', function() {
 
-    /**
-     * Aplica o efeito de máquina de escrever a um elemento.
-     */
     const typeWriterEffect = () => {
         const textElement = document.getElementById('text-bottom');
         if (!textElement) return;
@@ -32,7 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     /**
-     * Função utilitária para prender o foco do teclado dentro de um elemento (modal).
+     * Prende o foco do teclado dentro de um elemento (modal), garantindo acessibilidade.
+     * Impede que o usuário navegue para elementos fora do modal com a tecla Tab.
      * @param {HTMLElement} element - O elemento que deve conter o foco.
      */
     const trapFocus = (element) => {
@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     /**
-     * Inicializa o slider de imagens da página inicial.
+     * Inicializa o slider de imagens da página inicial, clonando o primeiro slide
+     * para criar um efeito de loop infinito.
      */
     const initializeSlider = () => {
         const slides = document.querySelector('.slides');
@@ -92,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     /**
-     * Inicializa o modal (lightbox) da galeria de imagens.
+     * Inicializa o modal (lightbox) da galeria de imagens dos produtos.
+     * Gerencia a abertura, fechamento, navegação entre imagens e acessibilidade.
      */
     const initializeGalleryModal = () => {
         const modal = document.getElementById('gallery-modal');
@@ -183,9 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    /**
-     * Inicializa o modal de contato (Ligar/WhatsApp).
-     */
     const initializeContactModal = () => {
         let contactModal = document.getElementById('contact-modal'); // Use let to allow re-assignment if created
         if (!contactModal) { // Create if it doesn't exist
@@ -232,7 +231,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     /**
-     * Inicializa o botão "Voltar ao Topo".
+     * Inicializa o botão "Voltar ao Topo", que aparece após rolar a página
+     * e permite um retorno suave ao topo.
      */
     const initializeBackToTop = () => {
         let backToTopButton = document.getElementById('back-to-top'); // Use let
@@ -263,8 +263,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     /**
-     * Inicializa a funcionalidade de rolagem suave para a barra de navegação em dispositivos móveis.
-     * Ao clicar em um item, a navegação rola para centralizá-lo.
+     * Gerencia a posição de rolagem da barra de navegação em dispositivos móveis.
+     * Salva a posição de rolagem para cada página e centraliza o item clicado.
      */
     const initializeNavScroller = () => {
         const navUl = document.querySelector('nav ul');
@@ -326,8 +326,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     /**
-     * Inicializa o observador para o efeito de fade-in nos elementos
-     * conforme eles entram na tela durante a rolagem.
+     * Inicializa um IntersectionObserver para aplicar um efeito de fade-in
+     * aos elementos conforme eles entram na área visível da tela.
      */
     const initializeFadeInObserver = () => {
         // Seleciona todos os elementos que devem ter o efeito
@@ -351,20 +351,57 @@ document.addEventListener('DOMContentLoaded', function() {
         // Inicia a observação para cada elemento
         animatedElements.forEach(el => observer.observe(el));
     };
+
     /**
-     * Agrupa todas as funções de inicialização que devem rodar para o conteúdo principal.
-     * Chamada no carregamento inicial e após cada carregamento de conteúdo SPA.
+     * Inicializa o botão de compartilhamento, utilizando a Web Share API nativa
+     * quando disponível, ou um fallback que copia o link para a área de transferência.
+     */
+    const initializeShareButton = () => {
+        const shareButton = document.getElementById('share-button');
+
+        if (shareButton) {
+            shareButton.addEventListener('click', async () => {
+                const shareData = {
+                    title: document.title,
+                    text: 'Dá uma olhada nessa coleção incrível da Bah!Bordei!',
+                    url: window.location.href
+                };
+
+                try {
+                    // Tenta usar a API de compartilhamento nativa
+                    if (navigator.share) {
+                        await navigator.share(shareData);
+                    } else {
+                        // Fallback: Copia para a área de transferência
+                        await navigator.clipboard.writeText(window.location.href);
+                        const originalText = shareButton.innerHTML;
+                        shareButton.innerHTML = 'Link Copiado!';
+                        setTimeout(() => {
+                            shareButton.innerHTML = originalText;
+                        }, 2000); // Volta ao texto original após 2 segundos
+                    }
+                } catch (err) {
+                    console.error("Erro ao compartilhar:", err);
+                }
+            });
+        }
+    };
+
+    /**
+     * Agrupa as funções de inicialização que precisam ser executadas
+     * sempre que um novo conteúdo principal é carregado (navegação SPA).
      */
     const initializeMainContentFeatures = () => {
         initializeSlider();
         initializeGalleryModal();
+        initializeShareButton(); // Adiciona a inicialização do botão de compartilhar
         initializeFadeInObserver();
         initializeNavScroller();
     };
 
     /**
-     * Agrupa todas as funções de inicialização que rodam apenas uma vez por página.
-     * Chamada apenas no carregamento inicial completo da página.
+     * Agrupa as funções de inicialização de componentes globais, que
+     * rodam apenas uma vez, no carregamento inicial completo da página.
      */
     const initializeGlobalFeatures = () => {
         typeWriterEffect();
@@ -377,7 +414,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainContent = document.querySelector('main');
 
     /**
-     * Carrega o conteúdo de uma URL e o injeta na tag <main>.
+     * Carrega o conteúdo de uma nova página de forma assíncrona (SPA)
+     * e o injeta no elemento <main>, atualizando também a navegação e o título.
      * @param {string} url - A URL da página a ser carregada.
      */
     const loadContent = async (url) => {
@@ -411,7 +449,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     /**
-     * Intercepta cliques em links internos para usar a navegação SPA.
+     * Intercepta cliques em links internos para previnir o recarregamento da página
+     * e acionar a navegação SPA através da History API.
      */
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
@@ -435,7 +474,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     /**
-     * Lida com os botões de voltar/avançar do navegador.
+     * Lida com os eventos de navegação do histórico do navegador (botões voltar/avançar).
      */
     window.addEventListener('popstate', () => {
         loadContent(window.location.href);

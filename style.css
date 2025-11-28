@@ -1,26 +1,68 @@
 /* ==========================================================================
-   1. CONFIGURAÇÕES GERAIS E FONTES
+   Bah!Bordei - Folha de Estilos Principal
+   Versão: 5.0
+
+   ÍNDICE:
+   1. Configurações Globais e Variáveis
+   2. Estrutura Base (Body)
+   3. Cabeçalho (Header)
+   4. Barra de Navegação (Nav)
+   5. Conteúdo Principal (Main)
+      - Slider de Imagens
+      - Seção de Apresentação (index.html)
+      - Cards de Produto (index.html)
+      - Grid de Coleções (produtos.html)
+      - Grid de Produtos (páginas de coleção)
+   6. Componentes
+      - Botão de Compartilhamento
+      - Modal (Lightbox e Contato)
+      - Botão Voltar ao Topo
+   7. Rodapé (Footer)
+   8. Animações e Efeitos
+   9. Media Queries (Design Responsivo)
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
-/* -- Estilos Gerais -- */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #FAF4E0;
-    color: #333;
+/* ==========================================================================
+   1. CONFIGURAÇÕES GLOBAIS E VARIÁVEIS
+   ========================================================================== */
+
+:root {
+    /* Paleta de Cores */
+    --color-primary: #6C4A3A;       /* Marrom principal */
+    --color-secondary: #F7B393;     /* Laranja/Pêssego para hover e destaque */
+    --color-background: #FAF4E0;    /* Bege claro do fundo */
+    --color-text: #333;             /* Cor de texto padrão */
+    --color-text-light: #ffffff;    /* Texto sobre fundos escuros */
+    --color-whatsapp: #25D366;
+
+    /* Fontes */
+    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-secondary: 'Lora', serif;
 }
 
 /* ==========================================================================
-   2. CABEÇALHO (HEADER)
+   2. ESTRUTURA BASE (BODY)
+   ========================================================================== */
+
+body {
+    font-family: var(--font-primary);
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+/* ==========================================================================
+   3. CABEÇALHO (HEADER)
    ========================================================================== */
 
 header {
     text-align: center;
     padding: 20px 0px;
-    background-color: #FAF4E0;
+    background-color: var(--color-background);
+    margin-bottom: 15px; /* Adiciona uma margem para separar do menu de navegação */
 }
 .logo-link {
     text-decoration: none;
@@ -28,12 +70,12 @@ header {
 
 /* Container da logo e textos */
 header .logo {
-    position: relative; /* Necessário para posicionar os textos de forma absoluta */
+    position: relative;
     margin: 0 auto; /* Centraliza o container */
     display: flex; /* Para centralizar a imagem dentro do container */
     flex-direction: column; /* Organiza os itens em coluna */
     align-items: center; /* Para centralizar a imagem dentro do container */
-    gap: 15px; /* Espaço entre a logo e o texto */
+    gap: 5px; /* Reduz o espaço entre a logo e o texto */
 }
 
 /* Imagem da logo */
@@ -44,83 +86,53 @@ header .logo img {
 }
 
 header h1 { /* Slogan abaixo da logo */
-    font-family: 'Lora', serif;
-    font-size: 1.4em; /* Ajuste o tamanho conforme necessário */
-    color: #6C4A3A;
-    margin: 0; /* Remove margens padrão do h1 */
+    font-family: var(--font-secondary);
+    /* Tipografia Fluida: Garante que a fonte se ajuste suavemente ao tamanho da tela. */
+    font-size: clamp(0.875rem, 2.5vw, 1.375rem); /* 1rem = 16px */
+    color: var(--color-primary);
+    margin: 0; /* Remove a margem superior para aproximar do logo */
     line-height: 1.2; /* Ajusta o espaçamento entre linhas */
 }
 
-/* Efeito de digitação no slogan */
-#text-bottom {
-    display: inline-block; /* Garante que o container se ajuste ao texto */
-    border-right: .15em solid #e4a79d; /* O cursor da máquina de escrever */
-    animation: blink-caret .75s step-end infinite;
-}
-/* Animação do cursor piscando */
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #e4a79d; }
-}
-
-
-/* Linhas decorativas laterais (não utilizado no momento) */
-.decorative-line {
-    position: absolute;
-    width: 170px; /* Aumenta o diâmetro para uma curvatura mais suave e afastar das palavras */
-    height: 230px;
-    border: 2px dotted rgba(108, 74, 58, 0.6); /* Estilo pontilhado, como uma costura */
-    border-radius: 50%;
-    /* Deixa apenas um quarto do círculo visível */
-    border-color: transparent transparent transparent rgba(108, 74, 58, 0.6);
-}
-.line-left {
-    /* Posiciona e rotaciona a linha da esquerda */
-    transform: translateX(-60px) rotate(0deg); /* Corrige rotação e afasta para a esquerda */
-}
-.line-right {
-    /* Posiciona e rotaciona a linha da direita */
-    transform: translateX(61px) rotate(180deg); /* Corrige rotação e afasta para a direita */
-}
-@media (max-width: 400px) {
-    .decorative-line {
-        display: none;
-    }
-}
-
 /* ==========================================================================
-   3. BARRA DE NAVEGAÇÃO (NAV)
+   4. BARRA DE NAVEGAÇÃO (NAV)
    ========================================================================== */
 
 nav {
-    background-color: #6C4A3A; /* Cor marrom principal, alinhada à identidade visual */
-    padding: 20px 0; /* Adiciona o padding vertical de volta para desktop */
+    background-color: var(--color-primary);
+    padding: 20px 10px; /* Adiciona padding para não colar nas bordas */
+    display: flex; /* Transforma a nav em um container flex */
+    justify-content: center; /* Centraliza o <ul> (o menu) dentro da nav */
 }
 
 nav ul {
     list-style: none;
     margin: 0;
-    padding: 0;
-    text-align: center;
+    padding: 0; /* Remove o padding, que foi movido para o elemento <nav> pai */
+    display: flex; /* Alinha os itens em linha */
+    overflow-x: auto; /* Permite a rolagem horizontal */
+    white-space: nowrap; /* Impede que os itens quebrem a linha */    
+    -webkit-overflow-scrolling: touch; /* Melhora a experiência de rolagem em iOS */
 }
 
-nav ul li {
+nav ul li { 
     display: inline-block;
-    margin: 0 20px;
+    margin: 0 15px; /* Ajusta a margem para acomodar o separador */
 }
 
 nav ul li a {
-    color: #ffffff;
+    color: var(--color-text-light);
     text-decoration: none;
-    font-weight: bold;
-    font-size: 20px; /* Aumenta o tamanho da fonte */
+    font-weight: 500; /* Um pouco menos "pesado" que bold */
+    /* Tipografia Fluida: Mínimo 15px, Idealmente 1.5% da largura da tela, Máximo 20px */
+    font-size: clamp(0.9375rem, 1.5vw, 1.25rem);
     transition: color 0.3s, transform 0.3s;
 }
 
 /* Melhora o contraste no hover para acessibilidade */
 nav ul li a:hover,
 nav ul li a:focus {
-    color: #F7B393; /* Cor com melhor contraste sobre o fundo marrom */
+    color: var(--color-secondary);
     transform: translateY(-3px);
 }
 
@@ -128,11 +140,15 @@ nav ul li a:focus {
    5. CONTEÚDO PRINCIPAL (MAIN)
    ========================================================================== */
 
-/* -- Seção do Slider -- */
+/* 5.1 - Slider de Imagens (index.html)
+-------------------------------------------------------------------------- */
+
 .slider {
     position: relative;
     width: 100%; /* Ocupa toda a largura */
-    height: 100vh; /* 60% da altura da tela */
+    /* Altura Fluida: Garante que o slider seja proporcional, evitando ser grande demais
+       em desktops (máx 500px) ou pequeno demais em celulares (mín 250px). */
+    height: clamp(250px, 40vw, 500px);
     overflow: hidden;
 }
 
@@ -140,7 +156,7 @@ nav ul li a:focus {
     display: flex;
     height: 100%;
     /* A largura será definida dinamicamente pelo JavaScript */
-    transition: transform 0.5s ease-in-out; /* Adiciona a animação de transição */
+    transition: transform 0.5s ease-in-out;
 }
 
 /* Slide individual */
@@ -157,50 +173,56 @@ nav ul li a:focus {
     object-fit: cover; /* Garante que a imagem cubra todo o espaço do slide */
 }
 
-/* -- Seção de Apresentação e Tipos de Produtos (index.html) -- */
+/* 5.2 - Seção de Apresentação e Tipos de Produtos (index.html)
+-------------------------------------------------------------------------- */
+
 .product-types {
-    background-color: #FAF4E0; /* Cor de fundo que preenche a largura */
-    color: #6C4A3A;
-    padding: 30px 0; /* Removemos o padding lateral daqui */
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    padding: 30px 0;
     text-align: center;
 }
 
 /* Container das caixas de produto */
 .product-box-container {
-    color: #6C4A3A;
-    display: flex;
-    justify-content: center;
+    color: var(--color-primary);
+    display: flex; /* Flexbox é ideal para alinhar itens de tamanho fixo */
+    justify-content: center; /* Centraliza os cards na linha */
+    flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha quando não houver espaço */
     gap: 30px;
-    flex-wrap: wrap;
-    margin-top: 50px; 
-    padding: 0 80px; /* Adicionamos o padding lateral aqui */
+    margin: 50px auto 40px; /* Margem: 50px em cima, auto nas laterais (centraliza), 40px embaixo */
+    max-width: 1400px; /* Limita a largura em telas muito grandes para manter a coesão */
 }
 
 /* Bloco de texto de apresentação */
 .presentation {
-    max-width: 1200px; /* Define uma largura máxima para o texto */
+    max-width: 1100px; /* Define uma largura máxima para o texto */
     margin: 0 auto 40px; /* Centraliza o bloco e adiciona margem inferior */
-    padding: 0 20px; /* Adiciona espaçamento lateral para telas menores */
+    padding: 0 clamp(20px, 8vw, 80px); /* Padding lateral fluido para melhor adaptação */
 }
 .presentation h2 {
-    text-align: center; /* Mantém o título centralizado */
+    /* Tipografia Fluida: Mínimo 16px, Idealmente 2.5% da largura da tela, Máximo 24px */
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    text-align: center;
 }
 .presentation p {
-    max-width: 800px;
+    max-width: 800px; /* Limita a largura das linhas para melhor legibilidade */
     margin: 0 auto 10px;
     padding: 0 20px;
-    text-align: center; /* Justifica os parágrafos */
+    text-align: center;
+    /* Tipografia Fluida: Mínimo 13px, Idealmente 1.5% da largura da tela, Máximo 16px */
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
 }
 
 /* Caixa individual de tipo de produto */
 .product-box {
-    background-color: #FAF4E0;
-    border: 1px solid #6C4A3A;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
     border-radius: 8px;
     padding: 20px;
-    width: 250px;
+    width: 280px; /* Garante que os cards tenham um tamanho fixo */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Adiciona uma transição suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .product-box:hover,
 .product-box:focus-within { /* Aplica o efeito quando um elemento dentro dele recebe foco */
@@ -208,21 +230,33 @@ nav ul li a:focus {
     box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Aumenta a sombra para dar profundidade */
 }
 
+.product-box h3 {
+    /* Tipografia Fluida: Mínimo 14px, Idealmente 2vw, Máximo 18px */
+    font-size: clamp(0.9rem, 2vw, 1.125rem);
+}
+
 /* Link "aqui" dentro do h2 */
 .product-types h2 a {
-    color: #6C4A3A; /* Mesma cor do texto do h2 */
-    text-decoration: none; /* Remove o sublinhado */
-    font-weight: bold; /* Mantém o negrito se desejar */
-    transition: color 0.3s ease; /* Transição suave da cor */
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 .product-types h2 a:hover,
 .product-types h2 a:focus {
-    color: #F7B393; /* Cor com melhor contraste sobre o fundo marrom */
+    color: var(--color-secondary);
 }
 
-/* -- Grid de Coleções (produtos.html) -- */
+.product-types h2 {
+    /* Tipografia Fluida: Mínimo 14px, Idealmente 2.5vw, Máximo 21px */
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+}
+
+/* 5.3 - Grid de Coleções (produtos.html)
+-------------------------------------------------------------------------- */
+
 .collection-grid {
-    display: grid;
+    display: grid; /* Grid é perfeito para um layout de colunas que se ajusta automaticamente */
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 40px;
     padding: 40px 5%;
@@ -241,7 +275,7 @@ nav ul li a:focus {
 .collection-preview-images {
     width: 100%; /* Garante que a caixa ocupe toda a largura do item */
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas de imagens */
     gap: 3px;
     background-color: #fff;
     border-radius: 8px;
@@ -280,16 +314,17 @@ nav ul li a:focus {
 /* Título da coleção */
 .collection-item h3 {
     margin: 0;
-    font-size: 1.2em;
+    /* Tipografia Fluida: Mínimo 14px, Idealmente 2vw, Máximo 19px */
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
 .collection-item h3 a {
     text-decoration: none;
-    color: #6C4A3A;
+    color: var(--color-primary);
     transition: color 0.3s ease;
 }
 .collection-item h3 a:hover,
 .collection-item h3 a:focus {
-    color: #F7B393; /* Cor com melhor contraste sobre o fundo marrom */
+    color: var(--color-secondary);
 }
 
 .disabled-collection { /* Título de coleção desabilitada */
@@ -297,15 +332,29 @@ nav ul li a:focus {
     cursor: not-allowed;
 }
 
-/* Lista de Produtos (produtos.html) */
+/* 5.4 - Cabeçalho das Páginas de Produto e Coleção
+-------------------------------------------------------------------------- */
+
 .product-list {
-    background-color: #FAF4E0; /* Nova cor de fundo para a lista de produtos */
-    padding: 20px 40px;
+    background-color: var(--color-background);
+    padding: 20px clamp(20px, 8vw, 80px); /* Reduz o padding vertical para aproximar do menu */
     text-align: center;
-    color: #6C4A3A
+    color: var(--color-primary);
 }
 
-/* Grid de produtos individuais (páginas de coleção) */
+.product-list h2 {
+    /* Tipografia Fluida: Mínimo 14px, Idealmente 2.5vw, Máximo 21px */
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+}
+
+.product-list h3 {
+    /* Tipografia Fluida: Mínimo 13px, Idealmente 2vw, Máximo 16px */
+    font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+/* 5.5 - Grid de Produtos Individuais (páginas de coleção)
+-------------------------------------------------------------------------- */
+
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -318,7 +367,7 @@ nav ul li a:focus {
 .product-card {
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 8px; /* Bordas arredondadas para suavizar o visual */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     /* Transforma o card em um container flexível */
     display: flex;
@@ -343,18 +392,22 @@ nav ul li a:focus {
 .product-card h3 {
     margin: 15px 20px 10px;
     min-height: 2.4em; /* Garante espaço para duas linhas de título */
+    /* Tipografia Fluida: Mínimo 14px, Idealmente 2vw, Máximo 19px */
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
 
 /* Botão de WhatsApp no card */
 .whatsapp-button {
-    display: inline-block;
-    background-color: #25D366;
-    color: #fff;
+    display: inline-flex; /* Permite alinhar ícone e texto */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--color-whatsapp);
+    color: var(--color-text-light);
     padding: 10px 20px;
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
-    margin: 0 20px; /* Define margens laterais */
     transition: background-color 0.3s, transform 0.3s;
 }
 .whatsapp-button:hover,
@@ -368,11 +421,40 @@ nav ul li a:focus {
     margin: 0 20px 20px; /* Ajusta margens */
     min-height: 3em; /* Garante espaço para duas linhas de descrição */
     margin-top: auto; /* Empurra o parágrafo e o botão para baixo */
+    /* Tipografia Fluida: Mínimo 13px, Idealmente 1.5vw, Máximo 15px */
+    font-size: clamp(0.8rem, 1.5vw, 0.9375rem);
 }
 
 /* ==========================================================================
-   6. MODAL DA GALERIA (LIGHTBOX)
+   6. COMPONENTES
    ========================================================================== */
+
+/* 6.1 - Botão de Compartilhar
+-------------------------------------------------------------------------- */
+
+.share-button {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px; /* Espaço acima do botão */
+    transition: background-color 0.3s, transform 0.3s;
+}
+.share-button:hover,
+.share-button:focus {
+    background-color: #5a3e30; /* Tom de marrom mais escuro para o hover */
+    transform: scale(1.05);
+}
+
+/* 6.2 - Modal (Lightbox e Contato)
+-------------------------------------------------------------------------- */
 
 .modal {
     display: none; /* Oculto por padrão */
@@ -421,11 +503,19 @@ nav ul li a:focus {
 .close-modal:focus {
     color: #bbb;
     text-decoration: none;
-    /* Adiciona um anel de foco para acessibilidade */
-    outline: 2px solid #F7B393;
+    /* Anel de foco para acessibilidade */
+    outline: 2px solid var(--color-secondary);
     outline-offset: 2px;
 }
 
+/* 
+  FIX: Remove o anel de foco (outline) padrão para usuários de mouse/toque, 
+  mas o mantém para usuários de teclado para acessibilidade.
+  Isso previne que uma barra de foco colorida apareça fixa na parte inferior em alguns navegadores mobile.
+*/
+:focus:not(:focus-visible) {
+    outline: none;
+}
 /* Setas de navegação da galeria */
 .prev, .next {
     cursor: pointer;
@@ -453,7 +543,7 @@ nav ul li a:focus {
     background-color: rgba(108, 74, 58, 0.8);
 }
 
-/* Esconde as setas se houver apenas uma imagem no modal */
+/* Esconde as setas de navegação se houver apenas uma imagem no modal */
 .single-image .prev,
 .single-image .next {
     display: none;
@@ -467,10 +557,16 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #6C4A3A; /* Cor marrom principal, para unificar com a navegação */
-    color: #ffffff;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
     padding: 30px 20px; /* Aumenta o espaçamento vertical */
     text-align: center;
+}
+
+footer#contato h3 {
+    /* Tipografia Fluida: Mínimo 14px, Idealmente 2.5vw, Máximo 18px */
+    font-size: clamp(0.9rem, 2.5vw, 1.125rem);
+    margin: 0 auto 15px; /* Garante que o bloco de texto permaneça centralizado e adiciona margem inferior */
 }
 .footer-content h3 {
     margin-top: 0; /* Remove a margem do topo do h3 */
@@ -492,7 +588,9 @@ footer {
     padding: 10px 20px; /* Reduz o espaçamento para um rodapé mais fino */
 }
 .direitos p {
-    color: #FAF4E0; /* Cor de texto clara para contrastar com o fundo escuro */
+    color: var(--color-background);
+    /* Tipografia Fluida: Mínimo 12px, Idealmente 1.5vw, Máximo 14px */
+    font-size: clamp(0.75rem, 1.5vw, 0.875rem);
 }
 
 /* Links de contato (telefone, instagram) */
@@ -500,7 +598,7 @@ footer {
     display: inline-flex;
     align-items: center;
     gap: 8px; /* Espaço entre o ícone e o texto */
-    color: #ffffff;
+    color: var(--color-text-light);
     font-size: 1.5rem; /* 24px */
     text-decoration: none; /* Remove o sublinhado */
     transition: color 0.3s, transform 0.3s;
@@ -521,41 +619,12 @@ footer {
     vertical-align: middle; /* Alinha o texto com o ícone */
 }
 
-/* -- Navegação Secundária das Coleções (páginas de produto) -- */
-.collection-nav {
-    width: 100%;
-    padding: 15px 0;
-    margin-bottom: 30px;
-    border-bottom: 2px solid rgba(108, 74, 58, 0.2);
-    text-align: center;
-}
-.collection-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.collection-nav ul li {
-    display: inline-block;
-    margin: 5px 10px;
-}
-.collection-nav ul li a {
-    text-decoration: none;
-    color: #6C4A3A;
-    padding: 8px 15px;
-    border-radius: 20px;
-    transition: background-color 0.3s, color 0.3s;
-}
-.collection-nav ul li a:hover,
-.collection-nav ul li a.active {
-    background-color: #F7B393;
-    color: #fff;
-}
-
 /* ==========================================================================
-   8. ESTILOS RESPONSIVOS (MEDIA QUERIES)
+   9. MEDIA QUERIES (DESIGN RESPONSIVO)
    ========================================================================== */
- 
- /* Para celulares (até 480px) */
+
+/* 9.1 - Celulares (até 480px)
+-------------------------------------------------------------------------- */
  @media (max-width: 480px) {
     /* Faz as caixas de produto da home ocuparem mais espaço */
     .product-box {
@@ -580,18 +649,21 @@ footer {
         text-align: center;
     }
 
+    /* Força a quebra de linha do título do rodapé em telas muito pequenas */
+    footer#contato h3 {
+        max-width: 240px; /* Ajusta a largura para quebrar a linha no ponto desejado */
+    }
+
 }
 
-/* ==========================================================================
-   9. BOTÃO VOLTAR AO TOPO
-   ========================================================================== */
-
+/* 6.3 - Botão Voltar ao Topo
+-------------------------------------------------------------------------- */
 .back-to-top {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    background-color: #6C4A3A; /* Cor marrom do site */
-    color: #fff;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -611,15 +683,15 @@ footer {
 }
 .back-to-top:hover,
 .back-to-top:focus {
-    background-color: #F7B393; /* Cor com melhor contraste */
+    background-color: var(--color-secondary);
     outline: none;
 }
 
 /* ==========================================================================
-   10. ANIMAÇÃO DE FADE-IN NA ROLAGEM
+   8. ANIMAÇÕES E EFEITOS
    ========================================================================== */
 
-/* Estado inicial dos elementos que irão animar */
+/* Efeito de fade-in na rolagem */
 .product-box,
 .collection-item,
 .product-card {
@@ -634,113 +706,55 @@ footer {
     transform: translateY(0);
 }
 
-/* ==========================================================================
-   11. MEDIA QUERIES PARA DISPOSITIVOS MENORES (TABLETS E CELULARES)
-   ========================================================================== */
+/* 9.2 - Tablets e Telas Médias (até 1080px)
+-------------------------------------------------------------------------- */
+@media (max-width: 1080px) {    
+    /* --- AJUSTES PARA TABLETS (entre 769px e 1080px) --- */
+    header .logo img {
+        max-height: 220px; /* Tamanho intermediário para a logo em tablets */
+    }
+    /* Deixa o bloco de texto de apresentação mais estreito em tablets */
+    .presentation {
+        max-width: 80%;
+    }
+    /* Deixa a descrição da coleção mais estreita em tablets */
+    .product-list p {
+        max-width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* 9.3 - Celulares e Telas Pequenas (até 768px)
+-------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-
-    /* --- AJUSTES GERAIS DE LAYOUT --- */
-    .product-box-container, .product-list {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
+    /* --- AJUSTES PARA CELULARES (abaixo de 768px) --- */
     .product-grid {
-        padding: 0;
+        padding: 0 20px; /* Garante o espaçamento lateral */
     }
-
     /* --- AJUSTES DO CABEÇALHO --- */
     header {
-        padding: 10px 0 10px 0; /* Adiciona padding inferior para criar margem */
+        padding: 10px 0;
     }
 
     header .logo {
-        gap: 10px; /* Espaço entre logo e slogan */
+        gap: 5px; /* Reduz o espaço entre logo e slogan */
     }
 
     header .logo img {
-        max-height: 160px; /* Aumenta um pouco a logo */
-    }
-
-    header h1 {
-        font-size: 0.8rem; /* Retorna a um tamanho de fonte legível */
-        max-width: 180px;
-        line-height: 1.3;
-        min-height: 2.6em; /* **FIX IMPORTANTE**: Reserva espaço para 2 linhas (2 * 1.3em) e evita o "pulo" do layout */
+        max-height: 180px; /* Reduz a logo para telas de celular */
     }
 
     /* --- AJUSTES DA NAVEGAÇÃO --- */
     nav {
-        padding: 8px 0;
+        padding: 8px 10px; /* Garante o espaçamento lateral para a rolagem funcionar */
         border-bottom-width: 7px;
     }
 
-    nav ul {
-        display: flex; /* Alinha os itens em linha */
-        overflow-x: auto; /* Permite a rolagem horizontal */
-        white-space: nowrap; /* Impede que os itens quebrem a linha */
-        justify-content: flex-start; /* Alinha os itens à esquerda */
-        -webkit-overflow-scrolling: touch; /* Melhora a experiência de rolagem em iOS */
-        scroll-behavior: smooth; /* Anima a rolagem feita via JavaScript */
-        padding: 0 10px; /* Adiciona um pequeno espaçamento nas laterais */
-    }
-
-    /* Centraliza a navegação apenas na página inicial, que tem menos itens */
-    .nav-home ul {
-        justify-content: center;
-    }
-
     /* Esconde a barra de rolagem para um visual mais limpo */
-    nav ul::-webkit-scrollbar {
+    nav ul::-webkit-scrollbar,
+    .collection-nav ul::-webkit-scrollbar {
         display: none;
     }
 
-    nav ul li {
-        margin: 0 8px; /* Reduz o espaçamento entre os itens do menu */
-    }
-
-    nav ul li a {
-        font-size: 0.9rem; /* Reduz o tamanho da fonte para mobile (aprox. 14.4px) */
-    }
-
-    /* --- AJUSTES DO SLIDER --- */
-    .slider {
-        height: 250px; /* Simplificado: define uma altura fixa para o slider no mobile */
-    }
-
-    /* --- AJUSTES GERAIS DE FONTE --- */
-    .presentation h2 {
-        font-size: 1rem;
-        line-height: 1.4;
-    }
-
-    .presentation p, .product-list p {
-        font-size: 0.8rem;
-    }
-
-    .product-types h2, .product-list h2 {
-        font-size: 0.9rem;
-    }
-
-    .product-list h3 {
-        font-size: 0.8rem;
-    }
-
-    .product-box h3, .collection-item h3, .product-card h3 {
-        font-size: 0.9rem;
-    }
-
-    .product-box p {
-        font-size: 0.8rem;
-    }
-
-    /* --- AJUSTES DO RODAPÉ --- */
-    .direitos {
-        font-size: 0.8em;
-    }
-
-    footer#contato h3 {
-        font-size: 0.9em;
-        max-width: 250px; /* Força a quebra de linha em telas menores */
-        margin: 0 auto; /* Garante que o bloco de texto permaneça centralizado */
-    }
 }
